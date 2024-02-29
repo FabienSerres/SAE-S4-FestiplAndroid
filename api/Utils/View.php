@@ -75,7 +75,7 @@ class View
         // convert view params in variables accessible by the php file
         extract($this->viewParams);
         // "enroll" the php file used to build and send the response
-        require_once $_SERVER['DOCUMENT_ROOT'] . "/$prefixToRelativePath" . "/$this->relativePath.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/api/View/$this->relativePath.php";
     }
 
     /**

@@ -1,6 +1,4 @@
-DROP DATABASE IF EXISTS festiplan;
-CREATE DATABASE IF NOT EXISTS festiplan DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE festiplan;
+USE festiplandroid;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -180,13 +178,14 @@ CREATE TABLE SpectacleScenes (
     FOREIGN KEY (idFestival) REFERENCES Festival(idFestival)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE FestivalFavoris {
-    idFestival INT(11) NOT NULL,
+CREATE TABLE FestivalFavoris
+(
+    idFestival    INT(11) NOT NULL,
     idUtilisateur INT(11) NOT NULL,
     PRIMARY KEY (idFestival, idUtilisateur),
-    FOREIGN KEY (idFestival) REFERENCES Festival(idFestival),
-    FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur(idUtilisateur)
-} ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+    FOREIGN KEY (idFestival) REFERENCES Festival (idFestival),
+    FOREIGN KEY (idUtilisateur) REFERENCES Utilisateur (idUtilisateur)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
 
