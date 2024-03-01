@@ -9,7 +9,7 @@ CREATE TABLE Utilisateur (
     mail VARCHAR(50) NOT NULL UNIQUE,
     login VARCHAR(35) NOT NULL UNIQUE,
     mdp VARCHAR(30) NOT NULL,
-    APIKey VARCHAR(100) 
+    APIKey VARCHAR(255)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Création de la table CategorieFestival
@@ -237,3 +237,53 @@ VALUES (1, 'scene1', 30, 12.12121, 12.12121),
 (2, 'scene3', 120, 12.12121, 12.12121),
 (3, 'scene4', 500, 12.12121, 12.12121),
 (3, 'scene5', 503, 12.12121, 12.12121);
+
+INSERT INTO Festival (categorie, titre, description, dateDebut, dateFin, illustration)
+VALUES
+    (1, 'Festival 1', 'Lorem ipsum', '2024-02-03', '2024-03-03', ''),
+    (2, 'Festival 2', 'Lorem ipsum', '2024-03-10', '2024-07-10', ''),
+    (3, 'Festival 3', 'Lorem ipsum', '2024-09-18', '2024-10-15', '');
+
+
+INSERT INTO Utilisateur (prenom, nom, mail, login, mdp)
+VALUES
+    ('Jean', 'Dupont', 'dupontJean@gmail.com', 'jean','123'),
+    ('Paul', 'Durand', 'durandPaul@gmail.com', 'paul','123'),
+    ('Jacques', 'Martin', 'martinJaques@gmail.com', 'jacques','123'),
+    ('Marie', 'Dupont', 'dupontMarie@gmail.com', 'marie','123'),
+    ('Jeanne', 'Durand', 'durandJeanne@gmail.com', 'jeanne','123');
+
+INSERT INTO EquipeOrganisatrice (idUtilisateur, idFestival, responsable)
+VALUES
+    (2,1,0),
+    (3,1,0),
+    (4,2,0),
+    (5,3,0),
+    (6,1,1);
+
+INSERT INTO Spectacle (titre, description, duree, illustration, categorie, tailleSceneRequise)
+VALUES
+    ('Concert de rock', 'Lorem ipsum', '01:30:00', '', 1, 3),
+    ('La vie est belle', 'Lorem ipsum', '02:00:00', '', 2, 2),
+    ('Cirque du soleil', 'Lorem ipsum', '01:30:00', '', 3, 3),
+    ('Danse avec les stars', 'Lorem ipsum', '01:30:00', '', 4, 2),
+    ('Projection de film', 'Lorem ipsum', '02:00:00', '', 5, 1);
+
+
+INSERT INTO SpectacleScenes (idFestival, idSpectacle, idScene)
+VALUES
+    (1, 1, 1),
+    (1, 2, 2),
+    (1, 3, 3),
+    (1, 4, 4),
+    (1, 5, 5);
+
+INSERT INTO FestivalFavoris (idFestival, idUtilisateur)
+VALUES
+    (2, 2),
+    (3, 3),
+    (2, 3),
+    (1, 4),
+    (2, 4),
+    (3, 4),
+    (1, 5);
