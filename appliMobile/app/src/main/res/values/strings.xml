@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">FestiplAndroid</string>
+
+    <!-- The help for the written fields -->
+    <string name="help_id">Identifiant</string>
+    <string name="help_password">Mot de passe</string>
+
+    <!-- For the button -->
+    <string name="btn_connect">Connexion</string>
+</resources>
