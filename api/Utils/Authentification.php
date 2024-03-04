@@ -1,7 +1,5 @@
 <?php
 
-const ApiKeyField = "MoiDoumbeJlePrendFacile";
-
 function CreateHeaderFromLoginPassword(string $login, string $password): string {
 
     $apiKey = "";
@@ -27,11 +25,10 @@ function CreateHeaderFromLoginPassword(string $login, string $password): string 
 
 function CheckIsAuthentified(): void {
     try {
-        global $ApiKeyField;
-
+        $ApiKeyField = "Moidoumbejleprendfacile";
         $headers = getallheaders();
-        
-        if (empty($headers["MoiDoumbeJlePrendFacile"])) {
+
+        if (empty($headers[$ApiKeyField])) {
             $infos["message"] = "Vous n'avez pas d'api key.";
             sendJson(400, $infos);
         }

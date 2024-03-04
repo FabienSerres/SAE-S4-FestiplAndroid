@@ -11,7 +11,10 @@ function getAllFestivals($idUtilisateur) {
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam("idUtilisateur", $idUtilisateur);
         $stmt->execute();
-        $fav = $stmt->fetchAll();
+        $fav = [];
+        while($row = $stmt->fetch()) {
+            $fav[] = $row["idFestival"];
+        }
 
         $sql = "SELECT idFestival, titre
                 FROM Festival";
@@ -20,9 +23,9 @@ function getAllFestivals($idUtilisateur) {
 
         $i=1;
         while($row = $stmt->fetch()) {
-            $festivals[$i]["idFestival"] = $row[0];
-            $festivals[$i]["titre"] = $row[1];
-            if(in_array($row[0], $fav)) {
+            $festivals[$i]["idFestival"] = $row["idFestival"];
+            $festivals[$i]["titre"] = $row["titre"];
+            if(in_array($row["idFestival"], $fav)) {
                 $festivals[$i]["favoris"] = true;
             } else {
                 $festivals[$i]["favoris"] = false;
@@ -53,7 +56,7 @@ function getFestivalInfo($id) {
                 JOIN Utilisateur
                 ON EquipeOrganisatrice.idUtilisateur = Utilisateur.idUtilisateur
                 JOIN CategorieFestival
-                ON Festival.categorie = CatégorieFestival.idCategorie
+                ON Festival.categorie = CategorieFestival.idCategorie
                 WHERE Festival.idFestival = :id
                 AND EquipeOrganisatrice.responsable = 1";
 

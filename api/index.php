@@ -24,11 +24,29 @@ switch ($_SERVER["REQUEST_METHOD"]) {
         switch($url[0]) {
 
             case "getAllFestivals" :
-                getAllFestivals($url[1]);
+
+                CheckIsAuthentified();
+
+                if (isset($url[1])) {
+                    getAllFestivals($url[1]);
+                } else {
+                    $infos["message"] = "Paramètre id non renseigné";
+                    sendJson(400, $infos);
+                }
+
                 break;
 
             case "getFavoriteFestivals":
-                getFavoriteFestivals($url[1]);
+
+                CheckIsAuthentified();
+
+                if (isset($url[1])) {
+                    getFavoriteFestivals($url[1]);
+                } else {
+                    $infos["message"] = "Paramètre id non renseigné";
+                    sendJson(400, $infos);
+                }
+
                 break;
 
             case "getFestivalInfo":
