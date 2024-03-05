@@ -2,5 +2,7 @@
     <dimen name="height_logo">75dp</dimen>
     <dimen name="height_anonymous">200dp</dimen>
     <dimen name="margin_top_100">100dp</dimen>
+    <dimen name="margin_top_50">50dp</dimen>
+    <dimen name="margin_top_25">25dp</dimen>
     <dimen name="little_margin">250px</dimen>
 </resources>

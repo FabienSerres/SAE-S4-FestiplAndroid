@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">FestiplAndroid</string>
 
+    <!-- Message for the connection -->
+    <string name="connect_successful">Connection réussie</string>
+    <string name="connect_error">Identifiant ou mot de passe incorrect</string>
+
     <!-- The help for the written fields -->
     <string name="help_id">Identifiant</string>
     <string name="help_password">Mot de passe</string>

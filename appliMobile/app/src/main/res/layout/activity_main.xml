@@ -4,21 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/whiteLogo"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/height_logo"
-        android:src="@drawable/logo_blanc_festiplan"
-        android:layout_span = "3"/>
+        android:src="@drawable/logo_blanc_festiplan" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/height_anonymous"
         android:layout_marginTop="@dimen/margin_top_100"
-        android:src="@drawable/anonymous"
-        android:layout_span = "3"/>
+        android:src="@drawable/anonymous" />
 
     <EditText
         android:id="@+id/txt_id"
@@ -38,14 +37,24 @@
         android:inputType="textPassword"
         android:hint="@string/help_password"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:gravity="center"
+        android:layout_marginTop="@dimen/margin_top_25"
+        android:id="@+id/txt_connection"
+        android:textColor="@color/red"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginHorizontal="@dimen/little_margin"
         android:text="@string/btn_connect"
-        android:layout_marginTop="@dimen/margin_top_100"
-        android:onClick="connectAction"/>
+        android:layout_marginTop="@dimen/margin_top_50"
+        android:onClick="connectAction"
+        android:backgroundTint="@color/blue"/>
 
 
 </TableLayout>
