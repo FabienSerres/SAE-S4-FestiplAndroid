@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="@string/title_festivals"
+        android:id="@+id/page_title"
+        android:gravity="center"
+        android:textSize="@dimen/height_title"
+        android:layout_marginTop="@dimen/margin_top_50"/>
+
+    <ListView
+        android:id="@+id/list_festivals"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_50"/>
+
+
+</TableLayout>

@@ -1,8 +1,10 @@
 package fr.iut.festiplandroid;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import fr.iut.festiplandroid.utils.Utils;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -25,6 +27,13 @@ public class MainActivity extends AppCompatActivity {
         txtId = findViewById(R.id.txt_id);
         txtPassword = findViewById(R.id.txt_password);
         msgConnection = findViewById(R.id.txt_connection);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        // Set the custom layout & mode
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        actionBar.setCustomView(R.layout.action_bar_custom);
+        actionBar.setElevation(0);
     }
 
     /**
@@ -39,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
         boolean connected = Utils.connect(id, password);
 
         if (connected) {
-            msgConnection.setText(R.string.connect_successful);
+            Intent intention = new Intent(MainActivity.this, ListFestivalActivity.class);
+            startActivity(intention);
         } else {
             msgConnection.setText(R.string.connect_error);
         }

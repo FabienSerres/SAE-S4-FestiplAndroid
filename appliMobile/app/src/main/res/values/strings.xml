@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">FestiplAndroid</string>
 
+
+    <!-- String for MainActivity -->
+
     <!-- Message for the connection -->
     <string name="connect_successful">Connection réussie</string>
     <string name="connect_error">Identifiant ou mot de passe incorrect</string>
@@ -11,4 +14,39 @@
 
     <!-- For the button -->
     <string name="btn_connect">Connexion</string>
+
+    <!-- For the menu option -->
+    <string name="option_festivals">Liste des festivals programmés</string>
+    <string name="option_favorites">Liste des favoris</string>
+    <string name="option_cancel">Annuler</string>
+
+
+
+    <!-- String for ListFestivalActivity -->
+
+    <!-- Text for the title -->
+    <string name="title_festivals">Festivals programmés</string>
+    <string name="title_favorites">Liste des favoris</string>
+
+    <!-- STUB festivals for the list -->
+    <string-array name="stub_festivals">
+        <item>Festival 1</item>
+        <item>Festival 2</item>
+        <item>Festival programmé 3</item>
+        <item>Festival programmé 4</item>
+        <item>Festival programmé 5</item>
+        <item>Festival programmé en Septembre 2024</item>
+        <item>Festival</item>
+        <item>Festival</item>
+        <item>Festival programmé</item>
+        <item>Festival programmé</item>
+        <item>Festival programmé</item>
+        <item>Festival programmé en Septembre 2024</item>
+        <item>Festival</item>
+        <item>Festival</item>
+        <item>Festival programmé</item>
+        <item>Festival programmé</item>
+        <item>Festival programmé</item>
+        <item>Festival programmé en Septembre 2024</item>
+    </string-array>
 </resources>

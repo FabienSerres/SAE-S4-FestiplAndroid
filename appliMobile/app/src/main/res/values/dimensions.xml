@@ -5,4 +5,6 @@
     <dimen name="margin_top_50">50dp</dimen>
     <dimen name="margin_top_25">25dp</dimen>
     <dimen name="little_margin">250px</dimen>
+    <dimen name="height_action_bar">100dp</dimen>
+    <dimen name="height_title">30dp</dimen>
 </resources>
