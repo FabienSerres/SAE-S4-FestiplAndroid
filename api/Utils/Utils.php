@@ -2,6 +2,16 @@
 
 require("View.php");
 
+/**
+ * Envoie les données au format JSON avec un code de statut HTTP spécifié.
+ *
+ * Cette fonction crée un objet de vue, y définit les variables "status" et "json" avec les valeurs fournies,
+ * puis rend la vue au chemin spécifié. Enfin, elle termine le script en cours.
+ *
+ * @param int $code Le code de statut HTTP à envoyer.
+ * @param mixed $data Les données à envoyer au format JSON.
+ * @return void
+ */
 function sendJson(int $code, mixed $data): void {
     $view = new View("view");
 
@@ -12,7 +22,17 @@ function sendJson(int $code, mixed $data): void {
     die();
 }
 
-function connecteBD() {
+/**
+ * Connecte à la base de données MySQL et renvoie un objet PDO.
+ *
+ * Cette fonction essaie de se connecter à la base de données MySQL en utilisant les informations d'identification
+ * fournies. Si la connexion réussit, elle renvoie un objet PDO configuré avec les options spécifiées.
+ * En cas d'échec de la connexion, elle envoie une réponse JSON avec un code d'erreur 500.
+ *
+ * @throws PDOException Si une erreur survient lors de la connexion à la base de données.
+ * @return PDO Un objet PDO représentant la connexion à la base de données.
+ */
+function connecteBD(): PDO {
     try {
         $user = "root";
         $password = "root";
@@ -26,7 +46,7 @@ function connecteBD() {
         return $pdo;
     } catch (PDOException $e) {
         $infos["message"] = "Problème de connexion à la base de données";
-        sendJson($infos, 500);
+        sendJson(500, $infos);
         die();
     }
 }

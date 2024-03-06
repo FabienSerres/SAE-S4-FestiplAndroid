@@ -1,0 +1,11 @@
+parameters:
+	level: max
+	paths:
+		- Services
+		- Utils
+	scanDirectories:
+	    - vendor
+	excludePaths:
+	    - vendor
+	    - SQL
+	    - View

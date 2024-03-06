@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Fonction pour créer une clé à partir du login et du mot de passe.
+ *
+ * Cette fonction génère une clé (suppose unique) à partir du login et du mot de passe fournis,
+ * en utilisant un algorithme de hachage HMAC avec différentes méthodes de hachage.
+ *
+ * @param string $login    Le login de l'utilisateur.
+ * @param string $password Le mot de passe de l'utilisateur.
+ *
+ * @return string L'en-tête généré.
+ */
 function CreateHeaderFromLoginPassword(string $login, string $password): string {
 
     $apiKey = "";
@@ -23,6 +34,15 @@ function CreateHeaderFromLoginPassword(string $login, string $password): string 
 
 }
 
+/**
+ * Fonction pour vérifier l'authentification de l'utilisateur à l'aide de l'API Key.
+ *
+ * Cette fonction vérifie si l'utilisateur est authentifié en vérifiant la présence et la validité de l'API Key
+ * dans les en-têtes de la requête HTTP. Si l'API Key est valide, la fonction se termine normalement, sinon
+ * elle renvoie un message d'erreur JSON avec le code d'état correspondant.
+ *
+ * @return void
+ */
 function CheckIsAuthentified(): void {
     try {
         $ApiKeyField = "Moidoumbejleprendfacile";

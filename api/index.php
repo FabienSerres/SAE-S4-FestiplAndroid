@@ -1,30 +1,30 @@
 <?php
 
+// Inclusion des fichiers nécessaires
 require_once("Utils/Utils.php");
 require_once("Utils/Authentification.php");
 require_once("Services/ApiService.php");
 
-//$data = array();
-//$data["test"] = "ok";
-//sendJson(400, $data);
-
-// Verifie que le call a l'api contient bien le $_GET["demande"]
+// Vérifie que le call à l'API contient bien le $_GET["demande"]
 if (!isset($_GET["demande"]) || empty($_GET["demande"])) {
     $data["message"] = "URL inexistant";
     sendJson(404, $data);
 }
 
+// Découpe de l'URL en segments
 $url = explode("/", filter_var($_GET["demande"], FILTER_SANITIZE_URL));
-// Recuperation du type de requete (GET, POST, ...)
+
+// Récupération du type de requête (GET, POST, ...)
 switch ($_SERVER["REQUEST_METHOD"]) {
 
-    // Si c'est une requete GET
+    // Si c'est une requête GET
     case "GET" :
 
         switch($url[0]) {
 
             case "getAllFestivals" :
 
+                // Vérification de l'authentification de l'utilisateur
                 CheckIsAuthentified();
 
                 if (isset($url[1])) {
@@ -38,6 +38,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 
             case "getFavoriteFestivals":
 
+                // Vérification de l'authentification de l'utilisateur
                 CheckIsAuthentified();
 
                 if (isset($url[1])) {
@@ -51,6 +52,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 
             case "getFestivalInfo":
 
+                // Vérification de l'authentification de l'utilisateur
                 CheckIsAuthentified();
 
                 if (isset($url[1])) {
@@ -61,9 +63,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                 }
 
                 break;
-                
+
             case "authentification":
 
+                // Vérification des paramètres de la requête
                 if (!isset($url[1])) {
                     $infos["message"] = "Paramètre login non renseigné";
                     sendJson(400, $infos);
@@ -74,9 +77,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                     sendJson(400, $infos);
                 }
 
+                // Appel de la fonction d'authentification
                 authentification($url[1], $url[2]);
                 break;
-                
+
             default:
                 $infos["message"] = $url[0] . " inexistant";
                 sendJson(404, $infos);
@@ -85,14 +89,15 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 
         break;
 
-    // Si c'est une requete PUT
+    // Si c'est une requête PUT
     case "PUT":
 
-        //switch($url[0]) {
-        // case "deleteFavoriteFestival":
-        //     deleteFavoriteFestival($url[1], $url[2]);
-        //     break;
-        //}
+        // Actions à effectuer pour les requêtes PUT (non implémenté dans cet exemple)
+        // switch($url[0]) {
+        //     case "deleteFavoriteFestival":
+        //         deleteFavoriteFestival($url[1], $url[2]);
+        //         break;
+        // }
 
         break;
 }

@@ -1,7 +1,16 @@
 <?php
 
-
-function getAllFestivals($idUtilisateur) {
+/**
+ * Fonction pour obtenir la liste de tous les festivals avec leur statut de favoris pour un utilisateur donné.
+ *
+ * Cette fonction permet de récupérer la liste de tous les festivals ainsi que leur statut de favoris pour un
+ * utilisateur donné.
+ *
+ * @param int $idUtilisateur L'identifiant de l'utilisateur pour lequel on veut obtenir la liste des festivals.
+ *
+ * @return void
+ */
+function getAllFestivals(int $idUtilisateur): void {
     try {
         $pdo = connecteBD();
 
@@ -12,7 +21,9 @@ function getAllFestivals($idUtilisateur) {
         $stmt->bindParam("idUtilisateur", $idUtilisateur);
         $stmt->execute();
         $fav = [];
-        while($row = $stmt->fetch()) {
+        $data1 = $stmt->fetchAll();
+
+        foreach($data1 as $row) {
             $fav[] = $row["idFestival"];
         }
 
@@ -20,9 +31,12 @@ function getAllFestivals($idUtilisateur) {
                 FROM Festival";
         $stmt = $pdo->prepare($sql);
         $stmt->execute();
+        $data2 = $stmt->fetchAll();
+
+        $festivals = null;
 
         $i=1;
-        while($row = $stmt->fetch()) {
+        foreach($data2 as $row) {
             $festivals[$i]["idFestival"] = $row["idFestival"];
             $festivals[$i]["titre"] = $row["titre"];
             if(in_array($row["idFestival"], $fav)) {
@@ -45,7 +59,19 @@ function getAllFestivals($idUtilisateur) {
     }
 }
 
-function getFestivalInfo($id) {
+/**
+ * Fonction pour obtenir les informations détaillées sur un festival.
+ *
+ * Cette fonction permet de récupérer les informations détaillées sur un festival
+ * à partir de son identifiant, y compris le titre, la description, les organisateurs,
+ * la catégorie, les dates de début et de fin, ainsi que les scènes où se déroulent
+ * les spectacles du festival.
+ *
+ * @param int $id L'identifiant du festival dont on veut obtenir les informations.
+ *
+ * @return void
+ */
+function getFestivalInfo(int $id): void {
     try{
         $pdo = connecteBD();
 
@@ -93,7 +119,6 @@ function getFestivalInfo($id) {
         $stmt->closeCursor();
 
         sendJson(200, $result);
-        
 
     } catch (PDOException $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
@@ -101,7 +126,17 @@ function getFestivalInfo($id) {
     }
 }
 
-function getFavoriteFestivals($id) {
+/**
+ * Fonction pour obtenir la liste des festivals favoris d'un utilisateur.
+ *
+ * Cette fonction permet de récupérer la liste des festivals favoris d'un utilisateur
+ * à partir de la base de données en fonction de son identifiant.
+ *
+ * @param int $id L'identifiant de l'utilisateur dont on veut obtenir les festivals favoris.
+ *
+ * @return void
+ */
+function getFavoriteFestivals(int $id): void {
     try {
         $pdo = connecteBD();
 
@@ -120,13 +155,24 @@ function getFavoriteFestivals($id) {
         $stmt->closeCursor();
 
         sendJson(200, $result);
-         } catch (PDOException $e) {
+    } catch (PDOException $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
         sendJson(500, $infos);
     }
 }
 
-function deleteFavoritreFestival($idFestival, $idUtilisateur) {
+/**
+ * Fonction pour supprimer un festival des favoris d'un utilisateur.
+ *
+ * Cette fonction permet de supprimer un festival des favoris d'un utilisateur
+ * en supprimant l'entrée correspondante dans la table FestivalFavoris de la base de données.
+ *
+ * @param int $idFestival    L'identifiant du festival à supprimer des favoris.
+ * @param int $idUtilisateur L'identifiant de l'utilisateur dont le festival doit être supprimé des favoris.
+ *
+ * @return void
+ */
+function deleteFavoriteFestival(int $idFestival, int $idUtilisateur): void{
     try {
         $pdo = connecteBD();
 
@@ -135,8 +181,8 @@ function deleteFavoritreFestival($idFestival, $idUtilisateur) {
                 ANd idUtilisateur = :idU";
 
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->bindParam(':idU', $idU);
+        $stmt->bindParam(':id', $idFestival);
+        $stmt->bindParam(':idU', $idUtilisateur);
         $stmt->execute();
 
         $stmt->closeCursor();
@@ -149,6 +195,17 @@ function deleteFavoritreFestival($idFestival, $idUtilisateur) {
     }
 }
 
+/**
+ * Fonction d'authentification utilisateur.
+ *
+ * Cette fonction permet de vérifier les informations de connexion d'un utilisateur
+ * en comparant le login et le mot de passe fournis avec ceux enregistrés dans la base de données.
+ *
+ * @param string $login    Le login de l'utilisateur.
+ * @param string $password Le mot de passe de l'utilisateur.
+ *
+ * @return void
+ */
 function authentification(string $login, string $password): void {
     try {
 
