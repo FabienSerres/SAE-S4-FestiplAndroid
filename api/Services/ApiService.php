@@ -181,13 +181,46 @@ function deleteFavoriteFestival(int $idFestival, int $idUtilisateur): void{
                 ANd idUtilisateur = :idU";
 
         $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':id', $idFestival);
+        $stmt->bindParam(':idF', $idFestival);
         $stmt->bindParam(':idU', $idUtilisateur);
         $stmt->execute();
 
         $stmt->closeCursor();
 
         sendJson(200, "Festival supprimé des favoris");
+
+    } catch (PDOException $e) {
+        $infos["message"] = "Erreur: " .$e->getMessage();
+        sendJson(500, $infos);
+    }
+}
+
+/**
+ * Fonction pour ajouter un festival aux favoris d'un utilisateur.
+ *
+ * Cette fonction permet d'ajouter un festival aux favoris d'un utilisateur
+ * en insérant une nouvelle entrée dans la table FestivalFavoris de la base de données.
+ *
+ * @param int $idFestival    L'identifiant du festival à ajouter aux favoris.
+ * @param int $idUtilisateur L'identifiant de l'utilisateur auquel le festival doit être ajouté aux favoris.
+ *
+ * @return void
+ */
+function addFavoriteFestival(int $idFestival, int $idUtilisateur): void {
+    try {
+        $pdo = connecteBD();
+
+        $sql = "INSERT INTO FestivalFavoris (idFestival, idUtilisateur)
+                VALUES (:idF, :idU)";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':idF', $idFestival);
+        $stmt->bindParam(':idU', $idUtilisateur);
+        $stmt->execute();
+
+        $stmt->closeCursor();
+
+        sendJson(200, "Festival ajouté aux favoris");
 
     } catch (PDOException $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
