@@ -8,6 +8,9 @@
     <string name="connect_successful">Connection réussie</string>
     <string name="connect_error">Identifiant ou mot de passe incorrect</string>
 
+    <!-- Message error connection at the network -->
+    <string name="msg_error_connect">Impossible de se connecter au réseau</string>
+
     <!-- The help for the written fields -->
     <string name="help_id">Identifiant</string>
     <string name="help_password">Mot de passe</string>
