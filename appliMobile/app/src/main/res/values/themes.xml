@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.FestiplAndroid" parent="Theme.Material3.DayNight">
+        <!-- Customize your light theme here. -->
+        <item name="actionBarSize">@dimen/height_action_bar</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="Theme.FestiplAndroid" parent="Base.Theme.FestiplAndroid" />
+</resources>
