@@ -286,7 +286,7 @@ function authentification(string $login, string $password): void {
         $login = htmlspecialchars($login);
         $password = htmlspecialchars($password);
 
-        $request = "SELECT 1 FROM Utilisateur WHERE login = ? AND mdp = ?";
+        $request = "SELECT idUtilisateur FROM Utilisateur WHERE login = ? AND mdp = ?";
         $pdo = connecteBD();
 
         $stmt = $pdo->prepare($request);
@@ -295,17 +295,16 @@ function authentification(string $login, string $password): void {
         $data = $stmt->fetchAll();
 
         if (count($data) > 0) {
-            if ($data[0][1] == 1) {
-                $key = CreateHeaderFromLoginPassword($login, $password);
+            $key = CreateHeaderFromLoginPassword($login, $password);
 
-                $request2 = "UPDATE Utilisateur SET APIKey = ? WHERE login = ? AND mdp = ?";
-                $stmt2 = $pdo->prepare($request2);
+            $request2 = "UPDATE Utilisateur SET APIKey = ? WHERE login = ? AND mdp = ?";
+            $stmt2 = $pdo->prepare($request2);
 
-                $stmt2->execute([$key, $login, $password]);
+            $stmt2->execute([$key, $login, $password]);
 
-                $infos["apiKey"] = $key;
-                sendJson(200, $infos);
-            }
+            $infos["apiKey"] = $key;
+            $infos["id"] = $data[0]["idUtilisateur"];
+            sendJson(200, $infos);
         }
 
         $infos["message"] = "Login et password invalide.";
