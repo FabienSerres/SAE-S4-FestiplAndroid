@@ -47,7 +47,8 @@
         android:text="@string/btn_connect"
         android:layout_marginTop="@dimen/margin_top_50"
         android:onClick="connectAction"
-        android:backgroundTint="@color/blue"/>
+        android:backgroundTint="@color/blue"
+        android:id="@+id/btn_connect"/>
 
 
 </TableLayout>
