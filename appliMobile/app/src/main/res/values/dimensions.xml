@@ -7,4 +7,6 @@
     <dimen name="little_margin">250px</dimen>
     <dimen name="height_action_bar">100dp</dimen>
     <dimen name="height_title">30dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
+    <dimen name="txt_size_25">20sp</dimen>
 </resources>

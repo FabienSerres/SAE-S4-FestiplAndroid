@@ -74,7 +74,6 @@ animator mtrl_fab_hide_motion_spec
 animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
-array stub_festivals
 attr SharedValue
 attr SharedValueId
 attr actionBarDivider
@@ -2618,6 +2617,7 @@ dimen notification_small_icon_size_as_large
 dimen notification_subtext_size
 dimen notification_top_pad
 dimen notification_top_pad_large_text
+dimen padding_20
 dimen tooltip_corner_radius
 dimen tooltip_horizontal_padding
 dimen tooltip_margin
@@ -2626,6 +2626,7 @@ dimen tooltip_precise_anchor_threshold
 dimen tooltip_vertical_padding
 dimen tooltip_y_offset_non_touch
 dimen tooltip_y_offset_touch
+dimen txt_size_25
 drawable abc_ab_share_pack_mtrl_alpha
 drawable abc_action_bar_item_background_material
 drawable abc_btn_borderless_material
@@ -2807,6 +2808,8 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
+drawable star_empty
+drawable star_full
 drawable test_level_drawable
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -2909,6 +2912,7 @@ id bounceBoth
 id bounceEnd
 id bounceStart
 id btn_connect
+id btn_view
 id buttonPanel
 id cache_measures
 id callMeasure
@@ -3263,6 +3267,7 @@ id textTop
 id text_input_end_icon
 id text_input_error_icon
 id text_input_start_icon
+id text_view
 id textinput_counter
 id textinput_error
 id textinput_helper_text
@@ -3436,6 +3441,7 @@ layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_end_icon
 layout design_text_input_start_icon
+layout list_item_layout
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
@@ -3544,6 +3550,8 @@ string character_counter_pattern
 string clear_text_end_icon_content_description
 string connect_error
 string connect_successful
+string data_error
+string db_error
 string error_a11y_label
 string error_icon_content_description
 string exposed_dropdown_menu_content_description

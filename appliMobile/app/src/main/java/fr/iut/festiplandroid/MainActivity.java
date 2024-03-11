@@ -1,5 +1,6 @@
 package fr.iut.festiplandroid;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,6 +25,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import fr.iut.festiplandroid.utils.Utils;
+
 /**
  * The main activity of the FestiPlAndroid application.
  * Allows users to log in and access festival information.
@@ -35,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     TextView msgConnection;
     Button btnConnection;
     
-    private final static String URL_API = "http://192.168.245.14/SAE-S4-FestiplAndroid/api/"
+    private final static String URL_API = "http://" + Utils.IP_SERVER + "/SAE-S4-FestiplAndroid/api/"
                                         + "authentification/%s/%s";
 
     private RequestQueue requestQueue;
@@ -49,23 +52,10 @@ public class MainActivity extends AppCompatActivity {
         msgConnection = findViewById(R.id.txt_connection);
         btnConnection = findViewById(R.id.btn_connect);
 
-        ActionBar actionBar = getSupportActionBar();
+        Utils.makeCustomActionBar(this);
 
-        // Set the custom layout & mode
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        actionBar.setCustomView(R.layout.action_bar_custom);
-        actionBar.setElevation(0);
-
-        // Check the connection
-        ConnectivityManager connectivityManager =
-                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-        if (networkInfo == null || ! networkInfo.isConnected()) {
-
+        if (!Utils.checkConnection(this)) {
             btnConnection.setEnabled(false);
-            Toast.makeText(this,
-                    getResources().getString(R.string.msg_error_connect),
-                    Toast.LENGTH_LONG).show();
         }
     }
 
@@ -79,14 +69,35 @@ public class MainActivity extends AppCompatActivity {
         String password = txtPassword.getText().toString();
 
         String url = String.format(URL_API, id, password);
+        requestQueue = Utils.getFileRequete(this, requestQueue);
+        JsonObjectRequest jsonObjectRequest = getRequest(url);
+        requestQueue.add(jsonObjectRequest);
+    }
 
-        requestQueue = getFileRequete();
-
+    /**
+     * Creates a JsonObjectRequest to authenticate the user and retrieve necessary data.
+     *
+     * This method constructs a JsonObjectRequest object specifically designed to authenticate
+     * the user and retrieve relevant data based on the provided URL. It's intended for handling
+     * GET requests and includes listeners to process successful responses and handle errors.
+     *
+     * @param url The URL for authenticating the user and retrieving data.
+     * @return A JsonObjectRequest object configured for authentication and data retrieval.
+     */
+    private JsonObjectRequest getRequest(String url) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        msgConnection.setText(response.toString());
+                        String responseString = response.toString();
+                        String apiKey = responseString.split(":")[1];
+                        responseString = responseString.split(":")[2];
+                        int idUser = Integer.parseInt(responseString.substring(0, responseString.length() - 1));
+                        apiKey = apiKey.substring(1, apiKey.length() - 6);
+
+                        Utils.apiKeyUser = apiKey;
+                        Utils.idUser = idUser;
+
                         Intent intention = new Intent(MainActivity.this,
                                                         ListFestivalActivity.class);
                         startActivity(intention);
@@ -99,24 +110,12 @@ public class MainActivity extends AppCompatActivity {
                             int statusCode = error.networkResponse.statusCode;
                             if (statusCode == 400) {
                                 msgConnection.setText(R.string.connect_error);
+                            } else if (statusCode == 500) {
+                                msgConnection.setText(R.string.db_error);
                             }
                         }
                     }
                 });
-
-        requestQueue.add(jsonObjectRequest);
-    }
-
-    /**
-     * Retrieves the Volley request queue. If the request queue is not already created,
-     * it initializes it.
-     *
-     * @return The Volley request queue.
-     */
-    private RequestQueue getFileRequete() {
-        if (requestQueue == null) {
-            requestQueue = Volley.newRequestQueue(this);
-        }
-        return requestQueue;
+        return jsonObjectRequest;
     }
 }

@@ -73,7 +73,6 @@ int animator mtrl_fab_hide_motion_spec 0x7f02001d
 int animator mtrl_fab_show_motion_spec 0x7f02001e
 int animator mtrl_fab_transformation_sheet_collapse_spec 0x7f02001f
 int animator mtrl_fab_transformation_sheet_expand_spec 0x7f020020
-int array stub_festivals 0x7f030000
 int attr SharedValue 0x7f040000
 int attr SharedValueId 0x7f040001
 int attr actionBarDivider 0x7f040002
@@ -2617,6 +2616,7 @@ int dimen notification_small_icon_size_as_large 0x7f0702be
 int dimen notification_subtext_size 0x7f0702bf
 int dimen notification_top_pad 0x7f0702c0
 int dimen notification_top_pad_large_text 0x7f0702c1
+int dimen padding_20 0x7f0702ca
 int dimen tooltip_corner_radius 0x7f0702c2
 int dimen tooltip_horizontal_padding 0x7f0702c3
 int dimen tooltip_margin 0x7f0702c4
@@ -2625,6 +2625,7 @@ int dimen tooltip_precise_anchor_threshold 0x7f0702c6
 int dimen tooltip_vertical_padding 0x7f0702c7
 int dimen tooltip_y_offset_non_touch 0x7f0702c8
 int dimen tooltip_y_offset_touch 0x7f0702c9
+int dimen txt_size_25 0x7f0702cb
 int drawable abc_ab_share_pack_mtrl_alpha 0x7f080029
 int drawable abc_action_bar_item_background_material 0x7f08002a
 int drawable abc_btn_borderless_material 0x7f08002b
@@ -2806,6 +2807,8 @@ int drawable notification_template_icon_bg 0x7f0800da
 int drawable notification_template_icon_low_bg 0x7f0800db
 int drawable notification_tile_bg 0x7f0800dc
 int drawable notify_panel_notification_icon_bg 0x7f0800dd
+int drawable star_empty 0x7f0800e2
+int drawable star_full 0x7f0800e3
 int drawable test_level_drawable 0x7f0800de
 int drawable tooltip_frame_dark 0x7f0800df
 int drawable tooltip_frame_light 0x7f0800e0
@@ -2908,6 +2911,7 @@ int id bounceBoth 0x7f09005f
 int id bounceEnd 0x7f090060
 int id bounceStart 0x7f090061
 int id btn_connect 0x7f090062
+int id btn_view 0x7f0901f5
 int id buttonPanel 0x7f090063
 int id cache_measures 0x7f090064
 int id callMeasure 0x7f090065
@@ -3262,6 +3266,7 @@ int id textTop 0x7f0901c1
 int id text_input_end_icon 0x7f0901c2
 int id text_input_error_icon 0x7f0901c3
 int id text_input_start_icon 0x7f0901c4
+int id text_view 0x7f0901f6
 int id textinput_counter 0x7f0901c5
 int id textinput_error 0x7f0901c6
 int id textinput_helper_text 0x7f0901c7
@@ -3435,6 +3440,7 @@ int layout design_navigation_menu 0x7f0c002b
 int layout design_navigation_menu_item 0x7f0c002c
 int layout design_text_input_end_icon 0x7f0c002d
 int layout design_text_input_start_icon 0x7f0c002e
+int layout list_item_layout 0x7f0c006c
 int layout m3_alert_dialog 0x7f0c002f
 int layout m3_alert_dialog_actions 0x7f0c0030
 int layout m3_alert_dialog_title 0x7f0c0031
@@ -3543,6 +3549,8 @@ int string character_counter_pattern 0x7f110027
 int string clear_text_end_icon_content_description 0x7f110028
 int string connect_error 0x7f110029
 int string connect_successful 0x7f11002a
+int string data_error 0x7f1100a7
+int string db_error 0x7f1100a6
 int string error_a11y_label 0x7f11002b
 int string error_icon_content_description 0x7f11002c
 int string exposed_dropdown_menu_content_description 0x7f11002d

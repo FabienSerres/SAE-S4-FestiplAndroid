@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">FestiplAndroid</string>
+    
+    <string name="db_error">Erreur de connexion à la base de données, veuillez réessayer.</string>
+    <string name="data_error">Impossinle de récupérer les données, veuillez réessayer.</string>
 
 
     <!-- String for MainActivity -->
@@ -30,26 +33,5 @@
     <!-- Text for the title -->
     <string name="title_festivals">Festivals programmés</string>
     <string name="title_favorites">Liste des favoris</string>
-
-    <!-- STUB festivals for the list -->
-    <string-array name="stub_festivals">
-        <item>Festival 1</item>
-        <item>Festival 2</item>
-        <item>Festival programmé 3</item>
-        <item>Festival programmé 4</item>
-        <item>Festival programmé 5</item>
-        <item>Festival programmé en Septembre 2024</item>
-        <item>Festival</item>
-        <item>Festival</item>
-        <item>Festival programmé</item>
-        <item>Festival programmé</item>
-        <item>Festival programmé</item>
-        <item>Festival programmé en Septembre 2024</item>
-        <item>Festival</item>
-        <item>Festival</item>
-        <item>Festival programmé</item>
-        <item>Festival programmé</item>
-        <item>Festival programmé</item>
-        <item>Festival programmé en Septembre 2024</item>
-    </string-array>
+    
 </resources>

@@ -1,25 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="stub_festivals">
-        <item>Festival 1</item>
-        <item>Festival 2</item>
-        <item>Festival programmé 3</item>
-        <item>Festival programmé 4</item>
-        <item>Festival programmé 5</item>
-        <item>Festival programmé en Septembre 2024</item>
-        <item>Festival</item>
-        <item>Festival</item>
-        <item>Festival programmé</item>
-        <item>Festival programmé</item>
-        <item>Festival programmé</item>
-        <item>Festival programmé en Septembre 2024</item>
-        <item>Festival</item>
-        <item>Festival</item>
-        <item>Festival programmé</item>
-        <item>Festival programmé</item>
-        <item>Festival programmé</item>
-        <item>Festival programmé en Septembre 2024</item>
-    </string-array>
     <color name="blue">#0069D9</color>
     <color name="red">#DA0707</color>
     <color name="white">#FFFF</color>
@@ -31,10 +11,14 @@
     <dimen name="margin_top_100">100dp</dimen>
     <dimen name="margin_top_25">25dp</dimen>
     <dimen name="margin_top_50">50dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
+    <dimen name="txt_size_25">20sp</dimen>
     <string name="app_name">FestiplAndroid</string>
     <string name="btn_connect">Connexion</string>
     <string name="connect_error">Identifiant ou mot de passe incorrect</string>
     <string name="connect_successful">Connection réussie</string>
+    <string name="data_error">Impossinle de récupérer les données, veuillez réessayer.</string>
+    <string name="db_error">Erreur de connexion à la base de données, veuillez réessayer.</string>
     <string name="help_id">Identifiant</string>
     <string name="help_password">Mot de passe</string>
     <string name="msg_error_connect">Impossible de se connecter au réseau</string>

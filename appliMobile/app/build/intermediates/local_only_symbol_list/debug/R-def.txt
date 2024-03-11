@@ -1,6 +1,5 @@
 R_DEF: Internal format may change without notice
 local
-array stub_festivals
 color blue
 color red
 color white
@@ -12,22 +11,29 @@ dimen little_margin
 dimen margin_top_100
 dimen margin_top_25
 dimen margin_top_50
+dimen padding_20
+dimen txt_size_25
 drawable anonymous
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable logo_blanc_festiplan
+drawable star_empty
+drawable star_full
 id btn_connect
+id btn_view
 id cancel
 id imageView
 id list_favorites
 id list_festivals
 id page_title
+id text_view
 id txt_connection
 id txt_id
 id txt_password
 layout action_bar_custom
 layout activity_list_festival
 layout activity_main
+layout list_item_layout
 menu menu_option
 mipmap ic_launcher
 mipmap ic_launcher_round
@@ -35,6 +41,8 @@ string app_name
 string btn_connect
 string connect_error
 string connect_successful
+string data_error
+string db_error
 string help_id
 string help_password
 string msg_error_connect
