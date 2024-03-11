@@ -50,7 +50,7 @@ function CheckIsAuthentified(): void {
 
         if (empty($headers[$ApiKeyField])) {
             $infos["message"] = "Vous n'avez pas d'api key.";
-            sendJson(400, $infos);
+            sendJson(401, $infos);
         }
 
         $apiKey = $headers[$ApiKeyField];
@@ -69,7 +69,7 @@ function CheckIsAuthentified(): void {
         }
 
         $infos["message"] = "Api key invalide.";
-        sendJson(400, $infos);
+        sendJson(401, $infos);
 
     } catch(Exception $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();

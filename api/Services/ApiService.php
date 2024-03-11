@@ -172,9 +172,25 @@ function getFavoriteFestivals(int $id): void {
  *
  * @return void
  */
-function deleteFavoriteFestival(int $idFestival, int $idUtilisateur): void{
+function deleteFavoriteFestival(int $idUtilisateur, int $idFestival): void{
     try {
         $pdo = connecteBD();
+
+        $sqlEstPresent = "SELECT 1 FROM FestivalFavoris
+                          WHERE idFestival = ?
+                          AND idUtilisateur = ?";
+
+        $stmtTest = $pdo->prepare($sqlEstPresent);
+        $stmtTest->execute([$idFestival, $idUtilisateur]);
+        $data = $stmtTest->fetchAll();
+
+        if (!count($data) > 0) {
+            $infos["message"] = "Le festvial " . $idFestival . " n'est pas en favoris pour l'utilisateur " . $idUtilisateur;
+            sendJson(400, $infos);
+        } else if ($data[0][1] != 1) {
+            $infos["message"] = "Le festvial " . $idFestival . " n'est pas en favoris pour l'utilisateur " . $idUtilisateur;
+            sendJson(400, $infos);
+        }
 
         $sql = "DELETE FROM FestivalFavoris
                 WHERE idFestival = :idF
@@ -187,7 +203,8 @@ function deleteFavoriteFestival(int $idFestival, int $idUtilisateur): void{
 
         $stmt->closeCursor();
 
-        sendJson(200, "Festival supprimé des favoris");
+        $infos["message"] = "Festival supprimé des favoris";
+        sendJson(200, $infos);
 
     } catch (PDOException $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
@@ -206,21 +223,35 @@ function deleteFavoriteFestival(int $idFestival, int $idUtilisateur): void{
  *
  * @return void
  */
-function addFavoriteFestival(int $idFestival, int $idUtilisateur): void {
+function addFavoriteFestival(int $idUtilisateur, int $idFestival): void {
     try {
         $pdo = connecteBD();
-
-        $sql = "INSERT INTO FestivalFavoris (idFestival, idUtilisateur)
-                VALUES (:idF, :idU)";
-
-        $stmt = $pdo->prepare($sql);
+        
+        $sqlDejaFav = "SELECT idFestival, idUtilisateur FROM FestivalFavoris WHERE idFestival = :idF AND idUtilisateur = :idU";
+        $stmt = $pdo->prepare($sqlDejaFav);
         $stmt->bindParam(':idF', $idFestival);
         $stmt->bindParam(':idU', $idUtilisateur);
-        $stmt->execute();
+        $stmt-> execute();
+        
+        if ($stmt->rowCount() == 0) {
+            $sql = "INSERT INTO FestivalFavoris (idFestival, idUtilisateur)
+                VALUES (:idF, :idU)";
 
-        $stmt->closeCursor();
+            $stmt = $pdo->prepare($sql);
+            $stmt->bindParam(':idF', $idFestival);
+            $stmt->bindParam(':idU', $idUtilisateur);
+            $stmt->execute();
 
-        sendJson(200, "Festival ajouté aux favoris");
+            $stmt->closeCursor();
+
+            $infos["message"] = "Festival ajouté aux favoris";
+            sendJson(200, $infos);
+        } else {
+            $infos["message"] = "Festival déjà ajouté en favoris";
+            sendJson(400, $infos);
+        }
+
+        
 
     } catch (PDOException $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();

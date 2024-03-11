@@ -93,11 +93,52 @@ switch ($_SERVER["REQUEST_METHOD"]) {
     case "PUT":
 
         // Actions à effectuer pour les requêtes PUT (non implémenté dans cet exemple)
-        // switch($url[0]) {
-        //     case "deleteFavoriteFestival":
-        //         deleteFavoriteFestival($url[1], $url[2]);
-        //         break;
-        // }
+        switch ($url[0]) {
+
+
+            case "addFavoriteFestival":
+                
+                CheckIsAuthentified();
+
+                if (!isset($url[1])) {
+                    $infos["message"] = "Paramètre de l'utilisateur non renseigné";
+                    sendJson(400, $infos);
+                }
+
+                if (!isset($url[2])) {
+                    $infos["message"] = "Paramètre du festival non renseigné";
+                    sendJson(400, $infos);
+                }
+
+                addFavoriteFestival($url[1], $url[2]);
+                break;
+        }
+        
 
         break;
+
+    case "DELETE":
+
+        // Actions à effectuer pour les requêtes DELETE
+        switch($url[0]) {
+
+            case "deleteFavoriteFestival":
+
+                CheckIsAuthentified();
+                
+                if (!isset($url[1])) {
+                    $infos["message"] = "Paramètre de l'utilisateur non renseigné";
+                    sendJson(400, $infos);
+                }
+
+                if (!isset($url[2])) {
+                    $infos["message"] = "Paramètre du festival non renseigné";
+                    sendJson(400, $infos);
+                }
+                
+                deleteFavoriteFestival($url[1], $url[2]);
+                break;
+
+        }
+
 }
