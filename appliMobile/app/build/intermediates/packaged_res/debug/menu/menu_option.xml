@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/list_festivals"
+        android:title="@string/option_festivals" />
+
+    <item
+        android:id="@+id/list_favorites"
+        android:title="@string/option_favorites" />
+
+    <item
+        android:id="@+id/cancel"
+        android:title="@string/option_cancel" />
+
+</menu>

@@ -1,0 +1,102 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="fr.iut.festiplandroid"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="28"
+9        android:targetSdkVersion="33" />
+10
+11    <uses-permission android:name="android.permission.INTERNET" />
+11-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:5:5-67
+11-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:5:22-64
+12    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+12-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:6:5-79
+12-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:6:22-76
+13
+14    <permission
+14-->[androidx.core:core:1.9.0] C:\Users\Fabien\.gradle\caches\transforms-3\25d17c91d5902985514078e82b64555a\transformed\core-1.9.0\AndroidManifest.xml:22:5-24:47
+15        android:name="fr.iut.festiplandroid.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+15-->[androidx.core:core:1.9.0] C:\Users\Fabien\.gradle\caches\transforms-3\25d17c91d5902985514078e82b64555a\transformed\core-1.9.0\AndroidManifest.xml:23:9-81
+16        android:protectionLevel="signature" />
+16-->[androidx.core:core:1.9.0] C:\Users\Fabien\.gradle\caches\transforms-3\25d17c91d5902985514078e82b64555a\transformed\core-1.9.0\AndroidManifest.xml:24:9-44
+17
+18    <uses-permission android:name="fr.iut.festiplandroid.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+18-->[androidx.core:core:1.9.0] C:\Users\Fabien\.gradle\caches\transforms-3\25d17c91d5902985514078e82b64555a\transformed\core-1.9.0\AndroidManifest.xml:26:5-97
+18-->[androidx.core:core:1.9.0] C:\Users\Fabien\.gradle\caches\transforms-3\25d17c91d5902985514078e82b64555a\transformed\core-1.9.0\AndroidManifest.xml:26:22-94
+19
+20    <application
+20-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:8:5-32:19
+21        android:allowBackup="true"
+21-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:9:9-35
+22        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+22-->[androidx.core:core:1.9.0] C:\Users\Fabien\.gradle\caches\transforms-3\25d17c91d5902985514078e82b64555a\transformed\core-1.9.0\AndroidManifest.xml:28:18-86
+23        android:dataExtractionRules="@xml/data_extraction_rules"
+23-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:10:9-65
+24        android:debuggable="true"
+25        android:extractNativeLibs="false"
+26        android:fullBackupContent="@xml/backup_rules"
+26-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:11:9-54
+27        android:icon="@drawable/logo_blanc_festiplan"
+27-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:12:9-54
+28        android:label="@string/app_name"
+28-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:13:9-41
+29        android:roundIcon="@drawable/logo_blanc_festiplan"
+29-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:14:9-59
+30        android:supportsRtl="true"
+30-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:15:9-35
+31        android:testOnly="true"
+32        android:theme="@style/Theme.FestiplAndroid"
+32-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:17:9-52
+33        android:usesCleartextTraffic="true" >
+33-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:16:9-44
+34        <activity
+34-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:19:9-27:20
+35            android:name="fr.iut.festiplandroid.MainActivity"
+35-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:20:13-41
+36            android:exported="true" >
+36-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:21:13-36
+37            <intent-filter>
+37-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:22:13-26:29
+38                <action android:name="android.intent.action.MAIN" />
+38-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:23:17-69
+38-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:23:25-66
+39
+40                <category android:name="android.intent.category.LAUNCHER" />
+40-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:25:17-77
+40-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:25:27-74
+41            </intent-filter>
+42        </activity>
+43        <activity
+43-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:28:9-31:20
+44            android:name="fr.iut.festiplandroid.ListFestivalActivity"
+44-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:29:13-49
+45            android:exported="true" >
+45-->C:\wamp64\www\SAE-S4-FestiplAndroid\appliMobile\app\src\main\AndroidManifest.xml:30:13-36
+46        </activity>
+47
+48        <provider
+48-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Fabien\.gradle\caches\transforms-3\2359ec2300da750368c8a650184da00c\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+49            android:name="androidx.startup.InitializationProvider"
+49-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Fabien\.gradle\caches\transforms-3\2359ec2300da750368c8a650184da00c\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+50            android:authorities="fr.iut.festiplandroid.androidx-startup"
+50-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Fabien\.gradle\caches\transforms-3\2359ec2300da750368c8a650184da00c\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+51            android:exported="false" >
+51-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Fabien\.gradle\caches\transforms-3\2359ec2300da750368c8a650184da00c\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+52            <meta-data
+52-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Fabien\.gradle\caches\transforms-3\2359ec2300da750368c8a650184da00c\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+53                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+53-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Fabien\.gradle\caches\transforms-3\2359ec2300da750368c8a650184da00c\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+54                android:value="androidx.startup" />
+54-->[androidx.emoji2:emoji2:1.2.0] C:\Users\Fabien\.gradle\caches\transforms-3\2359ec2300da750368c8a650184da00c\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+55            <meta-data
+55-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Fabien\.gradle\caches\transforms-3\d78e4e26e1aefc152d0ee4dc6a642534\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:31:13-33:52
+56                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+56-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Fabien\.gradle\caches\transforms-3\d78e4e26e1aefc152d0ee4dc6a642534\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:32:17-78
+57                android:value="androidx.startup" />
+57-->[androidx.lifecycle:lifecycle-process:2.4.1] C:\Users\Fabien\.gradle\caches\transforms-3\d78e4e26e1aefc152d0ee4dc6a642534\transformed\lifecycle-process-2.4.1\AndroidManifest.xml:33:17-49
+58        </provider>
+59    </application>
+60
+61</manifest>

@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
     EditText txtPassword;
     TextView msgConnection;
     Button btnConnection;
-
-    private final static String URL_API = "http://192.168.1.70/SAE-S4-FestiplAndroid/api/"
+    
+    private final static String URL_API = "http://192.168.245.14/SAE-S4-FestiplAndroid/api/"
                                         + "authentification/%s/%s";
 
     private RequestQueue requestQueue;

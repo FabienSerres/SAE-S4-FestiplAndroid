@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "fr.iut.festiplandroid"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "fr.iut.festiplandroid"

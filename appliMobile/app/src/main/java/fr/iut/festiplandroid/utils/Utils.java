@@ -7,6 +7,9 @@ public class Utils {
 
     private final static String LOGIN_DEV = "identifiant";
     private final static String PASSWORD_DEV = "password123";
+    
+    public static String[] INFO_API_ID = new String[2];
+
 
     /**
      * Check if the param given by the user are valid (for the moment they need to be equals to
