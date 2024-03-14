@@ -2,7 +2,7 @@
     <string name="app_name">FestiplAndroid</string>
     
     <string name="db_error">Erreur de connexion à la base de données, veuillez réessayer.</string>
-    <string name="data_error">Impossinle de récupérer les données, veuillez réessayer.</string>
+    <string name="data_error">Impossinble de récupérer les données, veuillez réessayer.</string>
 
 
     <!-- String for MainActivity -->

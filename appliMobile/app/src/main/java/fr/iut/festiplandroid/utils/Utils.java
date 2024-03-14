@@ -11,32 +11,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONObject;
+
+import fr.iut.festiplandroid.ListFestivalActivity;
 import fr.iut.festiplandroid.R;
 
 /**
  * Utility class containing methods for FestiPlAndroid application.
  */
 public class Utils {
-
-    private final static String LOGIN_DEV = "identifiant";
-    private final static String PASSWORD_DEV = "password123";
     public static int idUser;
     public static String apiKeyUser = "";
     public static final String API_KEY_NAME = "Moidoumbejleprendfacile";
-    public static final String IP_SERVER = "192.168.1.10";
-
-
-    /**
-     * Check if the param given by the user are valid (for the moment they need to be equals to
-     * the LOGIN and PASSWORD _DEV) and if they are, connect him.
-     *
-     * @param id the id given by the user
-     * @param password the password given by the user
-     * @return true if the information of connection are true, false otherwise
-     */
-    public static boolean connect(String id, String password) {
-        return id.equals(LOGIN_DEV) && password.equals(PASSWORD_DEV);
-    }
+    public static final String IP_SERVER = "10.108.0.103";
+    public final static String URL_API_ALL_FESTIVALS = "http://" + Utils.IP_SERVER
+                                                     + "/SAE-S4-FestiplAndroid/api/getAllFestivals/%d";
+    public final static String URL_API_FAV_FESTIVALS = "http://" + Utils.IP_SERVER
+                                                     + "/SAE-S4-FestiplAndroid/api/getFavoriteFestivals/%d";
+    public final static String URL_API_ADD_FAV = "http://" + Utils.IP_SERVER
+                                               + "/SAE-S4-FestiplAndroid/api/addFavoriteFestival/%d/%d";
+    public final static String URL_API_DEL_FAV = "http://" + Utils.IP_SERVER
+                                            + "/SAE-S4-FestiplAndroid/api/deleteFavoriteFestival/%d/";
 
     /**
      * Checks if the device is connected to the internet.

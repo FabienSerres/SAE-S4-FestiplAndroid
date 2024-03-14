@@ -1817,7 +1817,7 @@
     <string name="clear_text_end_icon_content_description">Clear text</string>
     <string name="connect_error">Identifiant ou mot de passe incorrect</string>
     <string name="connect_successful">Connection réussie</string>
-    <string name="data_error">Impossinle de récupérer les données, veuillez réessayer.</string>
+    <string name="data_error">Impossinble de récupérer les données, veuillez réessayer.</string>
     <string name="db_error">Erreur de connexion à la base de données, veuillez réessayer.</string>
     <string description="Screen reader announcement for when a checkbox is on error. [CHAR LIMIT=NONE]" name="error_a11y_label">
     Error: invalid

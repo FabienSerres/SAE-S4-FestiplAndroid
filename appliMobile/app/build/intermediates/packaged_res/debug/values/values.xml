@@ -17,7 +17,7 @@
     <string name="btn_connect">Connexion</string>
     <string name="connect_error">Identifiant ou mot de passe incorrect</string>
     <string name="connect_successful">Connection réussie</string>
-    <string name="data_error">Impossinle de récupérer les données, veuillez réessayer.</string>
+    <string name="data_error">Impossinble de récupérer les données, veuillez réessayer.</string>
     <string name="db_error">Erreur de connexion à la base de données, veuillez réessayer.</string>
     <string name="help_id">Identifiant</string>
     <string name="help_password">Mot de passe</string>
