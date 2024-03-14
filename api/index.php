@@ -18,7 +18,7 @@ $url = explode("/", filter_var($_GET["demande"], FILTER_SANITIZE_URL));
 switch ($_SERVER["REQUEST_METHOD"]) {
 
     // Si c'est une requête GET
-    case "GET" :
+    case "GET":
 
         switch($url[0]) {
 
