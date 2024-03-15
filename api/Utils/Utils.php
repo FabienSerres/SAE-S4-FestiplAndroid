@@ -50,3 +50,11 @@ function connecteBD(): PDO {
         die();
     }
 }
+
+function CallFunctionAndSendResults(callable $func): void {
+
+    $pdo = connecteBD();
+    $data = $func($pdo);
+    sendJson($data[0], $data[1]);
+
+}

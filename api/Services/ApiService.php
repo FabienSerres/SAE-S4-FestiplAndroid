@@ -10,9 +10,8 @@
  *
  * @return void
  */
-function getAllFestivals(int $idUtilisateur): void {
+function getAllFestivals(PDO $pdo, int $idUtilisateur): array {
     try {
-        $pdo = connecteBD();
 
         $sql = "SELECT idFestival
                 FROM FestivalFavoris
@@ -51,11 +50,11 @@ function getAllFestivals(int $idUtilisateur): void {
         $stmt=null;
         $pdo=null;
 
-        sendJson(200, $festivals);
+        return array(200, $festivals);
 
     } catch(Exception $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
-        sendJson(500, $infos);
+        return array(500, $infos);
     }
 }
 
@@ -71,9 +70,8 @@ function getAllFestivals(int $idUtilisateur): void {
  *
  * @return void
  */
-function getFestivalInfo(int $id): void {
+function getFestivalInfo(PDO $pdo, int $id): array {
     try{
-        $pdo = connecteBD();
 
         $sql = "SELECT Festival.titre, Festival.description, Utilisateur.nom, CategorieFestival.nom, Festival.dateDebut, Festival.dateFin
                 FROM Festival
@@ -118,11 +116,11 @@ function getFestivalInfo(int $id): void {
 
         $stmt->closeCursor();
 
-        sendJson(200, $result);
+        return array(200, $result);
 
     } catch (PDOException $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
-        sendJson(500, $infos);
+        return array(500, $infos);
     }
 }
 
@@ -136,9 +134,8 @@ function getFestivalInfo(int $id): void {
  *
  * @return void
  */
-function getFavoriteFestivals(int $id): void {
+function getFavoriteFestivals(PDO $pdo, int $id): array {
     try {
-        $pdo = connecteBD();
 
         $sql = "SELECT Festival.titre, Festival.idFestival
                 FROM Festival
@@ -154,10 +151,11 @@ function getFavoriteFestivals(int $id): void {
 
         $stmt->closeCursor();
 
-        sendJson(200, $result);
+        return array(200, $result);
+
     } catch (PDOException $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
-        sendJson(500, $infos);
+        return array(500, $infos);
     }
 }
 
@@ -172,9 +170,8 @@ function getFavoriteFestivals(int $id): void {
  *
  * @return void
  */
-function deleteFavoriteFestival(int $idUtilisateur, int $idFestival): void{
+function deleteFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): array {
     try {
-        $pdo = connecteBD();
 
         $sqlEstPresent = "SELECT 1 FROM FestivalFavoris
                           WHERE idFestival = ?
@@ -204,11 +201,12 @@ function deleteFavoriteFestival(int $idUtilisateur, int $idFestival): void{
         $stmt->closeCursor();
 
         $infos["message"] = "Festival supprimé des favoris";
-        sendJson(200, $infos);
+
+        return array(200, $infos);
 
     } catch (PDOException $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
-        sendJson(500, $infos);
+        return array(500, $infos);
     }
 }
 
@@ -223,9 +221,8 @@ function deleteFavoriteFestival(int $idUtilisateur, int $idFestival): void{
  *
  * @return void
  */
-function addFavoriteFestival(int $idUtilisateur, int $idFestival): void {
+function addFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): array {
     try {
-        $pdo = connecteBD();
         
         $sqlDejaFav = "SELECT idFestival, idUtilisateur FROM FestivalFavoris WHERE idFestival = :idF AND idUtilisateur = :idU";
         $stmt = $pdo->prepare($sqlDejaFav);
@@ -245,17 +242,15 @@ function addFavoriteFestival(int $idUtilisateur, int $idFestival): void {
             $stmt->closeCursor();
 
             $infos["message"] = "Festival ajouté aux favoris";
-            sendJson(200, $infos);
+            return array(200, $infos);
         } else {
             $infos["message"] = "Festival déjà ajouté en favoris";
-            sendJson(400, $infos);
+            return array(400, $infos);
         }
-
-        
 
     } catch (PDOException $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
-        sendJson(500, $infos);
+        return array(500, $infos);
     }
 }
 
@@ -270,7 +265,7 @@ function addFavoriteFestival(int $idUtilisateur, int $idFestival): void {
  *
  * @return void
  */
-function authentification(string $login, string $password): void {
+function authentification(PDO $pdo, string $login, string $password): array {
     try {
 
         if (empty($login)) {
@@ -287,7 +282,6 @@ function authentification(string $login, string $password): void {
         $password = htmlspecialchars($password);
 
         $request = "SELECT idUtilisateur FROM Utilisateur WHERE login = ? AND mdp = ?";
-        $pdo = connecteBD();
 
         $stmt = $pdo->prepare($request);
         $stmt->execute([$login, $password]);
@@ -304,14 +298,14 @@ function authentification(string $login, string $password): void {
 
             $infos["apiKey"] = $key;
             $infos["id"] = $data[0]["idUtilisateur"];
-            sendJson(200, $infos);
+            return array(200, $infos);
         }
 
         $infos["message"] = "Login et password invalide.";
-        sendJson(400, $infos);
+        return array(400, $infos);
 
     } catch(Exception $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
-        sendJson(500, $infos);
+        return array(500, $infos);
     }
 }
