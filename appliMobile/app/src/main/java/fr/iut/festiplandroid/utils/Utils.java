@@ -3,15 +3,21 @@ package fr.iut.festiplandroid.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import fr.iut.festiplandroid.ListFestivalActivity;
 import fr.iut.festiplandroid.R;
@@ -31,7 +37,7 @@ public class Utils {
     public final static String URL_API_ADD_FAV = "http://" + Utils.IP_SERVER
                                                + "/SAE-S4-FestiplAndroid/api/addFavoriteFestival/%d/%d";
     public final static String URL_API_DEL_FAV = "http://" + Utils.IP_SERVER
-                                            + "/SAE-S4-FestiplAndroid/api/deleteFavoriteFestival/%d/";
+                                               + "/SAE-S4-FestiplAndroid/api/deleteFavoriteFestival/%d/%d";
 
     /**
      * Checks if the device is connected to the internet.
@@ -76,4 +82,23 @@ public class Utils {
         }
         return requestQueue;
     }
+
+    /**
+     * Retrieves the ID of the festival based on its position.
+     *
+     * @param position The position of the festival in the list.
+     * @return The ID of the festival if found, otherwise -1.
+     */
+    public static int getFestivalId(int position) {
+        if (position >= 0 && position < ListFestivalActivity.allFestivals.size()) {
+            Set<Integer> keys = ListFestivalActivity.allFestivals.keySet();
+            List<Integer> keyList = new ArrayList<>(keys);
+            if (position < keyList.size()) {
+                int festivalId = keyList.get(position);
+                return festivalId;
+            }
+        }
+        return -1;
+    }
+
 }

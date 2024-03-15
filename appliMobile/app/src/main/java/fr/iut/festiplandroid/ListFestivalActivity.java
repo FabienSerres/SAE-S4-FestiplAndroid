@@ -43,6 +43,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+/**
+ * This activity displays a list of festivals.
+ * It retrieves festival information from the server and populates a ListView with the festival titles.
+ * Users can navigate between the list of all festivals and their favorite festivals using the options menu.
+ */
 public class ListFestivalActivity extends AppCompatActivity {
 
     private ListView listFestival;
@@ -68,6 +73,11 @@ public class ListFestivalActivity extends AppCompatActivity {
         displayAllFestivals();
     }
 
+    /**
+     * Displays all festivals in the UI.
+     * This method retrieves information about all festivals from the server and updates the UI
+     * to display the list of festivals.
+     */
     private void displayAllFestivals() {
         tv.setText(R.string.title_festivals);
         allFestivals.clear();
@@ -182,6 +192,12 @@ public class ListFestivalActivity extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
+    /**
+     * Creates a JsonArrayRequest for retrieving information about favorite festivals.
+     *
+     * @param url The URL for retrieving favorite festival information.
+     * @return The JsonArrayRequest for fetching favorite festival data.
+     */
     private JsonArrayRequest getRequestFavoritesFestivals(String url) {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -226,29 +242,4 @@ public class ListFestivalActivity extends AppCompatActivity {
         };
         return jsonArrayRequest;
     }
-
-    public static JsonObjectRequest requestAddFavorites(String url) {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.d("TAG", "CA MARCHE");
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                headers.put(Utils.API_KEY_NAME, Utils.apiKeyUser);
-                return headers;
-            }
-        };
-        return jsonObjectRequest;
-    }
-
 }
