@@ -50,3 +50,24 @@ function connecteBD(): PDO {
         die();
     }
 }
+
+/**
+ * Fonction pour appeler une fonction et envoyer ses résultats au format JSON.
+ *
+ * Cette fonction prend en paramètre une fonction callable et exécute cette fonction en lui passant
+ * un objet PDO représentant la connexion à la base de données. Elle envoie ensuite les résultats
+ * de la fonction au format JSON en utilisant la fonction sendJson.
+ *
+ * @param callable $func La fonction à appeler. Cette fonction doit accepter un objet PDO comme paramètre et retourner un tableau.
+ *                       Le premier élément du tableau doit être le code HTTP de réponse et le deuxième élément doit être les données à envoyer.
+ *                       Cette fonction doit retourner un tableau.
+ *
+ * @return void
+ */
+function CallFunctionAndSendResults(callable $func): void {
+
+    $pdo = connecteBD();
+    $data = $func($pdo);
+    sendJson($data[0], $data[1]);
+
+}

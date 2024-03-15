@@ -18,7 +18,7 @@ $url = explode("/", filter_var($_GET["demande"], FILTER_SANITIZE_URL));
 switch ($_SERVER["REQUEST_METHOD"]) {
 
     // Si c'est une requête GET
-    case "GET" :
+    case "GET":
 
         switch($url[0]) {
 
@@ -28,7 +28,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                 CheckIsAuthentified();
 
                 if (isset($url[1])) {
-                    getAllFestivals($url[1]);
+                    CallFunctionAndSendResults(function(PDO $pdo): array {
+                        global $url;
+                        return getAllFestivals($pdo, $url[1]);
+                    });
                 } else {
                     $infos["message"] = "Paramètre id non renseigné";
                     sendJson(400, $infos);
@@ -42,7 +45,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                 CheckIsAuthentified();
 
                 if (isset($url[1])) {
-                    getFavoriteFestivals($url[1]);
+                    CallFunctionAndSendResults(function(PDO $pdo): array {
+                        global $url;
+                        return getFavoriteFestivals($pdo, $url[1]);
+                    });
                 } else {
                     $infos["message"] = "Paramètre id non renseigné";
                     sendJson(400, $infos);
@@ -56,7 +62,10 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                 CheckIsAuthentified();
 
                 if (isset($url[1])) {
-                    getFestivalInfo($url[1]);
+                    CallFunctionAndSendResults(function(PDO $pdo): array {
+                        global $url;
+                        return getFestivalInfo($pdo, $url[1]);
+                    });
                 } else {
                     $infos["message"] = "Paramètre id non renseigné";
                     sendJson(400, $infos);
@@ -77,8 +86,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                     sendJson(400, $infos);
                 }
 
-                // Appel de la fonction d'authentification
-                authentification($url[1], $url[2]);
+                CallFunctionAndSendResults(function(PDO $pdo): array {
+                    global $url;
+                    return authentification($pdo, $url[1], $url[2]);
+                });
+
                 break;
 
             default:
@@ -110,7 +122,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                     sendJson(400, $infos);
                 }
 
-                addFavoriteFestival($url[1], $url[2]);
+                CallFunctionAndSendResults(function(PDO $pdo): array {
+                    global $url;
+                    return addFavoriteFestival($pdo, $url[1], $url[2]);
+                });
+
                 break;
         }
         
@@ -136,7 +152,11 @@ switch ($_SERVER["REQUEST_METHOD"]) {
                     sendJson(400, $infos);
                 }
                 
-                deleteFavoriteFestival($url[1], $url[2]);
+                CallFunctionAndSendResults(function(PDO $pdo): array {
+                    global $url;
+                    return deleteFavoriteFestival($pdo, $url[1], $url[2]);
+                });
+
                 break;
 
         }
