@@ -66,6 +66,18 @@ function connecteBD(): PDO {
  */
 function CallFunctionAndSendResults(callable $func): void {
 
+    // Trouver ici https://stackoverflow.com/a/52564238
+    $reflection = new ReflectionFunction($func);
+    if ('array' != $reflection->getReturnType()) {
+        $infos = array();
+        $infos["message"] = "Mauvais paramettre dans la fonction CallFunctionAndSendResults";
+        sendJson(400, $infos);
+    } 
+
+    // TODO faire la verification des paramettres pour que ce soit seulement un PDO
+    // if ($reflection->getParameters());
+    // https://stackoverflow.com/questions/28149002/get-php-callable-arguments-as-an-array
+
     $pdo = connecteBD();
     $data = $func($pdo);
     sendJson($data[0], $data[1]);

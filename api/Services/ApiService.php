@@ -290,12 +290,12 @@ function authentification(PDO $pdo, string $login, string $password): array {
     try {
         if (empty($login)) {
             $infos["message"] = "Login vide.";
-            sendJson(400, $infos);
+            return array(400, $infos);
         }
 
-        if (empty($login)) {
+        if (empty($password)) {
             $infos["message"] = "Password vide.";
-            sendJson(400, $infos);
+            return array(400, $infos);
         }
 
         $login = htmlspecialchars($login);
