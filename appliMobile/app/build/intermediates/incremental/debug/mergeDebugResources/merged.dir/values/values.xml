@@ -1817,7 +1817,7 @@
     <string name="clear_text_end_icon_content_description">Clear text</string>
     <string name="connect_error">Identifiant ou mot de passe incorrect</string>
     <string name="connect_successful">Connection réussie</string>
-    <string name="data_error">Impossinble de récupérer les données, veuillez réessayer.</string>
+    <string name="data_error">Impossible de récupérer les données, veuillez réessayer.</string>
     <string name="db_error">Erreur de connexion à la base de données, veuillez réessayer.</string>
     <string description="Screen reader announcement for when a checkbox is on error. [CHAR LIMIT=NONE]" name="error_a11y_label">
     Error: invalid
@@ -1864,7 +1864,11 @@
     <string description="Suffix for time in 12-hour standard, after noon. [CHAR_LIMIT=2]" name="material_timepicker_pm">PM</string>
     <string description="Title for the dialog with a time picker. [CHAR_LIMIT=32]" name="material_timepicker_select_time">Select time</string>
     <string name="material_timepicker_text_input_mode_description">Switch to text input mode for the time input.</string>
+    <string name="msg_error_add_fav">Impossible d\'ajouter le favori</string>
     <string name="msg_error_connect">Impossible de se connecter au réseau</string>
+    <string name="msg_error_delete_fav">Impossible de supprimer le favori</string>
+    <string name="msg_success_add_fav">Festival ajouté aux favoris</string>
+    <string name="msg_success_delete_fav">Festival retiré des favoris</string>
     <string description="Content description for new notification (no number count) [CHAR_LIMIT=NONE]" name="mtrl_badge_numberless_content_description">New notification</string>
     <string name="mtrl_checkbox_button_icon_path_checked" translatable="false">M14,18.2 11.4,15.6 10,17 14,21 22,13 20.6,11.6z</string>
     <string name="mtrl_checkbox_button_icon_path_group_name" translatable="false">icon</string>

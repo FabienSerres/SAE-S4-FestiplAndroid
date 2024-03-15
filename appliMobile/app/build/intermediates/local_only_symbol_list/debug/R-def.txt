@@ -45,7 +45,11 @@ string data_error
 string db_error
 string help_id
 string help_password
+string msg_error_add_fav
 string msg_error_connect
+string msg_error_delete_fav
+string msg_success_add_fav
+string msg_success_delete_fav
 string option_cancel
 string option_favorites
 string option_festivals

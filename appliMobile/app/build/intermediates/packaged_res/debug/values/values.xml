@@ -17,11 +17,15 @@
     <string name="btn_connect">Connexion</string>
     <string name="connect_error">Identifiant ou mot de passe incorrect</string>
     <string name="connect_successful">Connection réussie</string>
-    <string name="data_error">Impossinble de récupérer les données, veuillez réessayer.</string>
+    <string name="data_error">Impossible de récupérer les données, veuillez réessayer.</string>
     <string name="db_error">Erreur de connexion à la base de données, veuillez réessayer.</string>
     <string name="help_id">Identifiant</string>
     <string name="help_password">Mot de passe</string>
+    <string name="msg_error_add_fav">Impossible d\'ajouter le favori</string>
     <string name="msg_error_connect">Impossible de se connecter au réseau</string>
+    <string name="msg_error_delete_fav">Impossible de supprimer le favori</string>
+    <string name="msg_success_add_fav">Festival ajouté aux favoris</string>
+    <string name="msg_success_delete_fav">Festival retiré des favoris</string>
     <string name="option_cancel">Annuler</string>
     <string name="option_favorites">Liste des favoris</string>
     <string name="option_festivals">Liste des festivals programmés</string>
