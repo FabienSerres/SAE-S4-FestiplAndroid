@@ -6,9 +6,12 @@
  * Cette fonction permet de récupérer la liste de tous les festivals ainsi que leur statut de favoris pour un
  * utilisateur donné.
  *
+ * @param PDO $pdo Objet PDO représentant la connexion à la base de données.
  * @param int $idUtilisateur L'identifiant de l'utilisateur pour lequel on veut obtenir la liste des festivals.
  *
- * @return void
+ * @return array Un tableau contenant le code HTTP de réponse et la liste des festivals avec leur statut de favoris.
+ *               Le code 200 indique une requête réussie avec la liste des festivals.
+ *               Le code 500 indique une erreur interne du serveur avec un message d'erreur.
  */
 function getAllFestivals(PDO $pdo, int $idUtilisateur): array {
     try {
@@ -66,9 +69,12 @@ function getAllFestivals(PDO $pdo, int $idUtilisateur): array {
  * la catégorie, les dates de début et de fin, ainsi que les scènes où se déroulent
  * les spectacles du festival.
  *
+ * @param PDO $pdo Objet PDO représentant la connexion à la base de données.
  * @param int $id L'identifiant du festival dont on veut obtenir les informations.
  *
- * @return void
+ * @return array Un tableau contenant le code HTTP de réponse et les informations détaillées sur le festival.
+ *               Le code 200 indique une requête réussie avec les informations détaillées du festival.
+ *               Le code 500 indique une erreur interne du serveur avec un message d'erreur.
  */
 function getFestivalInfo(PDO $pdo, int $id): array {
     try{
@@ -130,9 +136,12 @@ function getFestivalInfo(PDO $pdo, int $id): array {
  * Cette fonction permet de récupérer la liste des festivals favoris d'un utilisateur
  * à partir de la base de données en fonction de son identifiant.
  *
+ * @param PDO $pdo Objet PDO représentant la connexion à la base de données.
  * @param int $id L'identifiant de l'utilisateur dont on veut obtenir les festivals favoris.
  *
- * @return void
+ * @return array Un tableau contenant le code HTTP de réponse et la liste des festivals favoris.
+ *               Le code 200 indique une requête réussie avec la liste des festivals favoris.
+ *               Le code 500 indique une erreur interne du serveur avec un message d'erreur.
  */
 function getFavoriteFestivals(PDO $pdo, int $id): array {
     try {
@@ -165,10 +174,14 @@ function getFavoriteFestivals(PDO $pdo, int $id): array {
  * Cette fonction permet de supprimer un festival des favoris d'un utilisateur
  * en supprimant l'entrée correspondante dans la table FestivalFavoris de la base de données.
  *
- * @param int $idFestival    L'identifiant du festival à supprimer des favoris.
- * @param int $idUtilisateur L'identifiant de l'utilisateur dont le festival doit être supprimé des favoris.
+ * @param PDO $pdo             Objet PDO représentant la connexion à la base de données.
+ * @param int $idUtilisateur   L'identifiant de l'utilisateur dont le festival doit être supprimé des favoris.
+ * @param int $idFestival      L'identifiant du festival à supprimer des favoris.
  *
- * @return void
+ * @return array Un tableau contenant le code HTTP de réponse et les informations associées.
+ *               Le code 200 indique que le festival a été supprimé avec succès des favoris de l'utilisateur.
+ *               Le code 400 indique que le festival n'était pas présent dans les favoris de l'utilisateur.
+ *               Le code 500 indique une erreur interne du serveur avec un message d'erreur.
  */
 function deleteFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): array {
     try {
@@ -182,16 +195,16 @@ function deleteFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): 
         $data = $stmtTest->fetchAll();
 
         if (!count($data) > 0) {
-            $infos["message"] = "Le festvial " . $idFestival . " n'est pas en favoris pour l'utilisateur " . $idUtilisateur;
-            sendJson(400, $infos);
+            $infos["message"] = "Le festival " . $idFestival . " n'est pas en favoris pour l'utilisateur " . $idUtilisateur;
+            return array(400, $infos);
         } else if ($data[0][1] != 1) {
-            $infos["message"] = "Le festvial " . $idFestival . " n'est pas en favoris pour l'utilisateur " . $idUtilisateur;
-            sendJson(400, $infos);
+            $infos["message"] = "Le festival " . $idFestival . " n'est pas en favoris pour l'utilisateur " . $idUtilisateur;
+            return array(400, $infos);
         }
 
         $sql = "DELETE FROM FestivalFavoris
                 WHERE idFestival = :idF
-                ANd idUtilisateur = :idU";
+                AND idUtilisateur = :idU";
 
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':idF', $idFestival);
@@ -216,10 +229,14 @@ function deleteFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): 
  * Cette fonction permet d'ajouter un festival aux favoris d'un utilisateur
  * en insérant une nouvelle entrée dans la table FestivalFavoris de la base de données.
  *
- * @param int $idFestival    L'identifiant du festival à ajouter aux favoris.
- * @param int $idUtilisateur L'identifiant de l'utilisateur auquel le festival doit être ajouté aux favoris.
+ * @param PDO $pdo             Objet PDO représentant la connexion à la base de données.
+ * @param int $idUtilisateur   L'identifiant de l'utilisateur auquel le festival doit être ajouté aux favoris.
+ * @param int $idFestival      L'identifiant du festival à ajouter aux favoris.
  *
- * @return void
+ * @return array Un tableau contenant le code HTTP de réponse et les informations associées.
+ *               Le code 200 indique que le festival a été ajouté avec succès aux favoris de l'utilisateur.
+ *               Le code 400 indique que le festival était déjà présent dans les favoris de l'utilisateur.
+ *               Le code 500 indique une erreur interne du serveur avec un message d'erreur.
  */
 function addFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): array {
     try {
@@ -228,7 +245,7 @@ function addFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): arr
         $stmt = $pdo->prepare($sqlDejaFav);
         $stmt->bindParam(':idF', $idFestival);
         $stmt->bindParam(':idU', $idUtilisateur);
-        $stmt-> execute();
+        $stmt->execute();
         
         if ($stmt->rowCount() == 0) {
             $sql = "INSERT INTO FestivalFavoris (idFestival, idUtilisateur)
@@ -260,14 +277,17 @@ function addFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): arr
  * Cette fonction permet de vérifier les informations de connexion d'un utilisateur
  * en comparant le login et le mot de passe fournis avec ceux enregistrés dans la base de données.
  *
+ * @param PDO    $pdo      Objet PDO représentant la connexion à la base de données.
  * @param string $login    Le login de l'utilisateur.
  * @param string $password Le mot de passe de l'utilisateur.
  *
- * @return void
+ * @return array Un tableau contenant le code HTTP de réponse et les informations associées.
+ *               Le code 200 indique une authentification réussie avec les détails de l'utilisateur.
+ *               Le code 400 indique une requête incorrecte avec un message d'erreur.
+ *               Le code 500 indique une erreur interne du serveur avec un message d'erreur.
  */
 function authentification(PDO $pdo, string $login, string $password): array {
     try {
-
         if (empty($login)) {
             $infos["message"] = "Login vide.";
             sendJson(400, $infos);
