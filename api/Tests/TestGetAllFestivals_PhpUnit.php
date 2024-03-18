@@ -28,7 +28,6 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
             2 => ["idFestival" => 2, "titre" => "Festival B", "favoris" => false]
         ]], $result);
     }
-    
 
     // Test en cas d'erreur interne du serveur
     public function testGetAllFestivalsServerError() {
