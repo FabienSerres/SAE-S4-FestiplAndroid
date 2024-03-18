@@ -12,7 +12,7 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
         $pdoStatementMockl = $this->createMock(PDOStatement::class);
 
         $pdoMock->method('prepare')->willReturn($pdoStatementMockl);
-        
+
         $pdoStatementMockl->method('execute')->willReturn(true);
         $pdoStatementMockl->method('fetchAll')->willReturn([
             ["idFestival" => 1, "titre" => "Festival A"],
@@ -28,6 +28,7 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
             2 => ["idFestival" => 2, "titre" => "Festival B", "favoris" => false]
         ]], $result);
     }
+    
 
     // Test en cas d'erreur interne du serveur
     public function testGetAllFestivalsServerError() {
