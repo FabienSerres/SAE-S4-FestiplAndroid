@@ -3,7 +3,7 @@
 require("../Services/ApiService.php");
 use PHPUnit\Framework\TestCase;
 
-class FestivalTest extends TestCase {
+class TestGetAllFestivals_PhpUnit extends TestCase {
 
     // Test lorsque tout se passe bien
     public function testGetAllFestivalsSuccess() {
