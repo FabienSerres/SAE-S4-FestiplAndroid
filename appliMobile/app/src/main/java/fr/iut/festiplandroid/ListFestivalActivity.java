@@ -9,6 +9,7 @@ import fr.iut.festiplandroid.utils.Utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -62,6 +63,9 @@ public class ListFestivalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         setContentView(R.layout.activity_list_festival);
         tv = findViewById(R.id.page_title);
         listFestival = findViewById(R.id.list_festivals);
