@@ -11,8 +11,15 @@ if (!isset($_GET["demande"]) || empty($_GET["demande"])) {
     sendJson(404, $data);
 }
 
+$filterVar = filter_var($_GET["demande"]);
+
+if ($filterVar === false) {
+   $data["message"] = "Erreur filtre var invalide";
+    sendJson(404, $data);
+}
+
 // Découpe de l'URL en segments
-$url = explode("/", filter_var($_GET["demande"], FILTER_SANITIZE_URL));
+$url = explode("/", $filterVar, FILTER_SANITIZE_URL);
 
 // Récupération du type de requête (GET, POST, ...)
 switch ($_SERVER["REQUEST_METHOD"]) {
