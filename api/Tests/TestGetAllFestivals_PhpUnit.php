@@ -9,9 +9,12 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
     public function testGetAllFestivalsSuccess() {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
-        $pdoMock->method('prepare')->willReturn($this->createMock(PDOStatement::class));
-        $pdoMock->method('execute')->willReturn(true);
-        $pdoMock->method('fetchAll')->willReturn([
+        $pdoStatementMockl = $this->createMock(PDOStatement::class);
+
+        $pdoMock->method('prepare')->willReturn($pdoStatementMockl);
+        
+        $pdoStatementMockl->method('execute')->willReturn(true);
+        $pdoStatementMockl->method('fetchAll')->willReturn([
             ["idFestival" => 1, "titre" => "Festival A"],
             ["idFestival" => 2, "titre" => "Festival B"]
         ]);
