@@ -15,7 +15,7 @@ class GetFestivalInfoTest extends TestCase {
         $pdoStatementMock3 = $this->createMock(PDOStatement::class);
         $pdoStatementMock4 = $this->createMock(PDOStatement::class);
     
-        $pdoMock->expects($this->exactly(4)) // Attend cinq exécutions
+        $pdoMock->expects($this->exactly(4)) // Attend 4 exécutions
                 ->method('prepare')
                 ->willReturnOnConsecutiveCalls($pdoStatementMock1, $pdoStatementMock2, $pdoStatementMock3, $pdoStatementMock4);
     
