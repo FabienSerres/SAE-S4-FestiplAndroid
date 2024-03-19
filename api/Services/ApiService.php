@@ -175,7 +175,7 @@ function getFavoriteFestivals(PDO $pdo, int $id): array {
 
         return array(200, $result);
 
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
         return array(500, $infos);
     }
@@ -230,7 +230,7 @@ function deleteFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): 
 
         return array(200, $infos);
 
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
         return array(500, $infos);
     }
