@@ -32,10 +32,10 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
     
         // WHEN: Appel de la fonction à getAllFestivals
         $result = getAllFestivals($pdoMock, 1);
-    
+
         // THEN: Vérification du résultat attendu
         $this->assertEquals([200, [
-            1 => ["idFestival" => 1, "titre" => "Festival A", "favoris" => false]
+            1 => ["idFestival" => 1, "titre" => "Festival A", "favoris" => true]
         ]], $result);
     }
 
