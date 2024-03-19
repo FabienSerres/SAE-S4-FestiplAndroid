@@ -7,6 +7,9 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
 
     // Test lorsque tout se passe bien
     public function testGetAllFestivalsSuccess() {
+        // Aide trouver ici:
+        // https://stackoverflow.com/questions/54533092/phpunit-test-a-class-with-an-expects-method-in-it
+
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
         $pdoStatementMock1 = $this->createMock(PDOStatement::class);
@@ -56,9 +59,11 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
     public function testGetAllFestivalsInvalidUserID() {
         // GIVEN: Initialisation du mock PDO (non utilisé dans ce cas)
         $pdoMock = $this->createMock(PDO::class);
-        $pdoMock->method('prepare')->willReturn($this->createMock(PDOStatement::class));
-        $pdoMock->method('execute')->willReturn(true);
-        $pdoMock->method('fetchAll')->willReturn([]);
+        $statementMock = $this->createMock(PDOStatement::class);
+
+        $pdoMock->method('prepare')->willReturn($statementMock);
+        $statementMock->method('execute')->willReturn(true);
+        $statementMock->method('fetchAll')->willReturn([]);
 
         // WHEN: Appel de la fonction à tester avec un identifiant utilisateur invalide (-1)
         $result = getAllFestivals($pdoMock, -1);
@@ -72,9 +77,11 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
     public function testGetAllFestivalsAucunFestivalTrouve() {
         // GIVEN: Initialisation du mock PDO avec un comportement renvoyant une liste vide de festivals
         $pdoMock = $this->createMock(PDO::class);
-        $pdoMock->method('prepare')->willReturn($this->createMock(PDOStatement::class));
-        $pdoMock->method('execute')->willReturn(true);
-        $pdoMock->method('fetchAll')->willReturn([]);
+        $statementMock = $this->createMock(PDOStatement::class);
+        
+        $pdoMock->method('prepare')->willReturn($statementMock);
+        $statementMock->method('execute')->willReturn(true);
+        $statementMock->method('fetchAll')->willReturn([]);
 
         // WHEN: Appel de la fonction à tester
         $result = getAllFestivals($pdoMock, 1);
