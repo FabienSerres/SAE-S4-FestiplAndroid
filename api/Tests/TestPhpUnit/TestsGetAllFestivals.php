@@ -1,9 +1,11 @@
 <?php
 
-require("../Services/ApiService.php");
+require __DIR__ . '/../../Services/ApiService.php';
+// require("../Services/ApiService.php");
+
 use PHPUnit\Framework\TestCase;
 
-class TestGetAllFestivals_PhpUnit extends TestCase {
+class TestsGetAllFestivals extends TestCase {
 
     // Test lorsque tout se passe bien
     public function testGetAllFestivalsSuccess() {
@@ -57,7 +59,7 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
 
     // Test avec un identifiant utilisateur invalide
     public function testGetAllFestivalsInvalidUserID() {
-        // GIVEN: Initialisation du mock PDO (non utilisé dans ce cas)
+        // GIVEN: Initialisation du mock PDO 
         $pdoMock = $this->createMock(PDO::class);
         $statementMock = $this->createMock(PDOStatement::class);
 
