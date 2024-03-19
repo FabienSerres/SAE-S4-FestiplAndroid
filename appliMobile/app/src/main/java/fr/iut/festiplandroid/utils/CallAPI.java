@@ -5,6 +5,7 @@ import static fr.iut.festiplandroid.ListFestivalActivity.favoritesFestivalList;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;

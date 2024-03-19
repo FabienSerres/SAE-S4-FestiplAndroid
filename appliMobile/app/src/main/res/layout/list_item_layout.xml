@@ -20,6 +20,14 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/eye"
+        android:id="@+id/btn_details"
+        android:background="@android:color/transparent"
+        android:paddingRight="@dimen/padding_20" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:src="@drawable/star_empty"
         android:id="@+id/btn_view"
         android:background="@android:color/transparent"

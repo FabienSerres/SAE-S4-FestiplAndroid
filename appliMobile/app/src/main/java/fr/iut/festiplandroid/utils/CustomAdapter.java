@@ -1,6 +1,7 @@
 package fr.iut.festiplandroid.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import fr.iut.festiplandroid.DetailsFestivalActivity;
 import fr.iut.festiplandroid.ListFestivalActivity;
 import fr.iut.festiplandroid.R;
 
@@ -50,41 +52,60 @@ public class CustomAdapter extends ArrayAdapter<String> {
         TextView textView = listItemView.findViewById(R.id.text_view);
         textView.setText(currentItem);
 
-        ImageButton button = listItemView.findViewById(R.id.btn_view);
-        button.setTag("empty");
+        ImageButton buttonFav = listItemView.findViewById(R.id.btn_view);
+        buttonFav.setTag("empty");
+
+        ImageButton buttonDetails = listItemView.findViewById(R.id.btn_details);
 
         String[] festivalInfo = ListFestivalActivity.allFestivals.get(position + 1);
 
         if (festivalInfo != null && festivalInfo.length > 1 && festivalInfo[1].equals("true") ||
             ListFestivalActivity.favoritesFestivalList.contains(currentItem)) {
-            button.setImageResource(R.drawable.star_full);
-            button.setTag("full");
+            buttonFav.setImageResource(R.drawable.star_full);
+            buttonFav.setTag("full");
         } else {
-            button.setImageResource(R.drawable.star_empty);
+            buttonFav.setImageResource(R.drawable.star_empty);
         }
 
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tag = (String) button.getTag();
+                String tag = (String) buttonFav.getTag();
                 int idFestival = Utils.getFestivalId(position);
                 if (tag.equals("empty")) {
-                    button.setImageResource(R.drawable.star_full);
-                    button.setTag("full");
+                    buttonFav.setImageResource(R.drawable.star_full);
+                    buttonFav.setTag("full");
 
                     String addFavoriteUrl = String.format(Utils.URL_API_ADD_FAV, Utils.idUser,
                                                                                  idFestival);
                     RequestQueue requestQueue = Volley.newRequestQueue(getContext());
                     requestQueue.add(requestAddFavoriteFestival(addFavoriteUrl));
                 } else if (tag.equals("full")) {
-                    button.setImageResource(R.drawable.star_empty);
-                    button.setTag("empty");
+                    buttonFav.setImageResource(R.drawable.star_empty);
+                    buttonFav.setTag("empty");
 
                     String deleteFavoriteUrl = String.format(Utils.URL_API_DEL_FAV, Utils.idUser,
                                                                                     idFestival);
                     RequestQueue requestQueue = Volley.newRequestQueue(getContext());
                     requestQueue.add(requestDeleteFavoriteFestival(deleteFavoriteUrl));
                 }
+            }
+        });
+
+        buttonDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nameFestival = getItem(position);
+                int id = 0;
+                for (Map.Entry<Integer, String[]> values : ListFestivalActivity.allFestivals.entrySet()) {
+                    if (values.getValue()[0].equals(nameFestival)) {
+                        id = values.getKey();
+                    }
+                }
+
+                Intent intent = new Intent(getContext(), DetailsFestivalActivity.class);
+                intent.putExtra("idFestival", id);
+                getContext().startActivity(intent);
             }
         });
 
