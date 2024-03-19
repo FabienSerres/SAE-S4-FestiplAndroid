@@ -70,7 +70,10 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
 
         // THEN: Vérification du résultat attendu
         // Resultat attendu = liste vide + code 200, aucun festival trouvé pour l'utilisateur -1
-        $this->assertEquals([200, []], $result);
+        $this->assertEquals([
+            0 => 200, 
+            1 => [],
+        ], $result);
     }
 
     // Test lorsque aucun festival n'est trouvé pour un utilisateur donné
@@ -78,7 +81,7 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
         // GIVEN: Initialisation du mock PDO avec un comportement renvoyant une liste vide de festivals
         $pdoMock = $this->createMock(PDO::class);
         $statementMock = $this->createMock(PDOStatement::class);
-        
+
         $pdoMock->method('prepare')->willReturn($statementMock);
         $statementMock->method('execute')->willReturn(true);
         $statementMock->method('fetchAll')->willReturn([]);
@@ -87,7 +90,10 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
         $result = getAllFestivals($pdoMock, 1);
 
         // THEN: Vérification du résultat attendu
-        $this->assertEquals([200, []], $result);
+        $this->assertEquals([
+            0 => 200, 
+            1 => [],
+        ], $result);
     }
 
 }
