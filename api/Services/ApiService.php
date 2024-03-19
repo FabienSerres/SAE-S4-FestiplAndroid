@@ -122,6 +122,19 @@ function getFestivalInfo(PDO $pdo, int $id): array {
 
         $stmt->closeCursor();
 
+        $sql = "SELECT Spectacle.titre, Spectacle.duree, Spectacle.categorie
+                FROM Spectacle
+                INNER JOIN SpectacleDeFestival
+                ON Spectacle.idSpectacle = SpectacleDeFestival.idSpectacle
+                WHERE SpectacleDeFestival.idFestival = ?";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+
+        $result["spectacles"] = $stmt->fetchAll();
+
+        $stmt->closeCursor();
+
         return array(200, $result);
 
     } catch (PDOException $e) {
