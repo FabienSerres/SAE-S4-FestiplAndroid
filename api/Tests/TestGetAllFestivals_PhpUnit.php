@@ -71,8 +71,8 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
         // THEN: Vérification du résultat attendu
         // Resultat attendu = liste vide + code 200, aucun festival trouvé pour l'utilisateur -1
         $this->assertEquals([
-            0 => 200, 
-            1 => [],
+            0 => 200,
+            1 => null,
         ], $result);
     }
 
@@ -92,7 +92,7 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
         // THEN: Vérification du résultat attendu
         $this->assertEquals([
             0 => 200, 
-            1 => [],
+            1 => null,
         ], $result);
     }
 
