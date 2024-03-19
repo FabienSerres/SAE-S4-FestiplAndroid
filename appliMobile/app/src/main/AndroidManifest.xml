@@ -29,6 +29,10 @@
             android:name=".ListFestivalActivity"
             android:exported="true">
         </activity>
+        <activity
+            android:name=".DetailsFestivalActivity"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>

@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="Test"
         android:paddingLeft="@dimen/padding_20"
-        android:textSize="@dimen/txt_size_25"/>
+        android:textSize="@dimen/txt_size_20"/>
 
     <Space
         android:layout_width="0dp"

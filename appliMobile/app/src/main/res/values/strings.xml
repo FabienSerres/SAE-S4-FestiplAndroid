@@ -43,7 +43,8 @@
     <string name="msg_error_delete_fav">Impossible de supprimer le favori</string>
     
     <!-- Strings for details view -->
-    <string name="description_label">Description</string>
+    <string name="description_label">Description : </string>
     <string name="category_label">Catégorie : </string>
-    <string name="date_label">Date</string>
+    <string name="date_label">Date : </string>
+    <string name="spectacle_label">Spectacles : </string>
 </resources>

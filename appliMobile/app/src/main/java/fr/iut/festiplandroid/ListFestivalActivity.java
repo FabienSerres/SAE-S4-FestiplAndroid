@@ -95,66 +95,6 @@ public class ListFestivalActivity extends AppCompatActivity {
         requestQueue.add(jsonObjectRequest);
     }
 
-    /**
-     * Creates a JsonObjectRequest with the given URL for retrieving festival information.
-     *
-     * This method constructs a JsonObjectRequest object specifically tailored for retrieving
-     * information about festivals from the provided URL. It's designed to handle GET requests
-     * and includes listeners to process successful responses and handle errors.
-     *
-     * @param url The URL for retrieving festival information.
-     * @return A JsonObjectRequest object configured for fetching festival data.
-     */
-    private JsonObjectRequest getRequestAllFestivals(String url) {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Iterator<String> keys = response.keys();
-                        while (keys.hasNext()) {
-                            String key = keys.next();
-                            try {
-                                JSONObject objectCurrent = response.getJSONObject(key);
-                                allFestivals.put(Integer.parseInt(objectCurrent.get("idFestival")
-                                                        .toString()), new String[]{
-                                                                objectCurrent.get("titre").toString(),
-                                                                objectCurrent.get("favoris").toString()});
-                                scheduledFestival.add(objectCurrent.get("titre").toString());
-                            } catch (JSONException e) {
-                                Toast.makeText(ListFestivalActivity.this,
-                                        getResources().getString(R.string.data_error),
-                                        Toast.LENGTH_LONG).show();
-                            }
-
-                            adapter = new CustomAdapter(ListFestivalActivity.this,
-                                                               scheduledFestival);
-                            listFestival.setAdapter(adapter);
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if (error instanceof ServerError && error.networkResponse != null) {
-                            int statusCode = error.networkResponse.statusCode;
-                            if (statusCode == 500) {
-                                Toast.makeText(ListFestivalActivity.this,
-                                        getResources().getString(R.string.db_error),
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }
-                }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                headers.put(Utils.API_KEY_NAME, Utils.apiKeyUser);
-                return headers;
-            }
-        };
-        return jsonObjectRequest;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         new MenuInflater(this).inflate(R.menu.menu_option, menu);
