@@ -1,11 +1,8 @@
 <?php
 
-require __DIR__ . '/../../Services/ApiService.php';
-// require("../Services/ApiService.php");
-
 use PHPUnit\Framework\TestCase;
 
-class TestsGetAllFestivals extends TestCase {
+class GetAllFestivalsTest extends TestCase {
 
     // Test lorsque tout se passe bien
     public function testGetAllFestivalsSuccess() {

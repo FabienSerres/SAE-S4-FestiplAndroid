@@ -2,10 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-require __DIR__ . '/../../Services/ApiService.php';
-// require("../../Services/ApiService.php");
-
-class TestsGetFestivalInfo extends TestCase {
+class GetFestivalInfoTest extends TestCase {
 
     // Test en cas d'erreur interne du serveur
     public function testGetInfoFestivalServerError() {
