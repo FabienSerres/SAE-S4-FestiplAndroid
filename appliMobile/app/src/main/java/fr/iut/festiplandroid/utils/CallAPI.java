@@ -1,7 +1,10 @@
 package fr.iut.festiplandroid.utils;
 
-import android.content.Context
+import static fr.iut.festiplandroid.ListFestivalActivity.favoritesFestivalList;
+
+import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,8 +13,10 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,8 +44,8 @@ public class CallAPI {
      */
     public static JsonObjectRequest callAPI(String url, MainActivity activity, TextView msgConnection) {
         return new JsonObjectRequest(Request.Method.GET, url, null,
-                response -> handleResponse(response, activity),
-                error -> handleError(error, msgConnection));
+                response -> handleResponseAuth(response, activity),
+                error -> handleErrorAuth(error, msgConnection));
     }
 
     /**
@@ -49,7 +54,7 @@ public class CallAPI {
      * @param response The JSONObject response from the API.
      * @param activity The MainActivity instance.
      */
-    private static void handleResponse(JSONObject response, MainActivity activity) {
+    private static void handleResponseAuth(JSONObject response, MainActivity activity) {
         String responseString = response.toString();
         String apiKey = responseString.split(":")[1];
         responseString = responseString.split(":")[2];
@@ -69,7 +74,7 @@ public class CallAPI {
      * @param error         The VolleyError object representing the error.
      * @param msgConnection The TextView to display connection messages.
      */
-    private static void handleError(VolleyError error, TextView msgConnection) {
+    private static void handleErrorAuth(VolleyError error, TextView msgConnection) {
         if (error instanceof ServerError && error.networkResponse != null) {
             int statusCode = error.networkResponse.statusCode;
             if (statusCode == 400) {
@@ -88,12 +93,17 @@ public class CallAPI {
      * and includes listeners to process successful responses and handle errors.
      *
      * @param url The URL for retrieving festival information.
+     * @param context The context of the calling activity.
+     * @param allFestivals The map to store all festivals.
+     * @param scheduledFestival The list to store scheduled festivals.
+     * @param listFestival The ListView to update with festival data.
      * @return A JsonObjectRequest object configured for fetching festival data.
      */
-    public JsonObjectRequest getRequestAllFestivals(String url) {
+    public JsonObjectRequest getRequestAllFestivals(String url, Context context, Map<Integer, String[]> allFestivals,
+                                                     ArrayList<String> scheduledFestival, ListView listFestival) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
-                this::handleResponse,
-                this::handleError) {
+                response -> handleResponseAllFestivals(response, context, allFestivals, scheduledFestival, listFestival),
+                error -> handleError500(context, error)) {
             @Override
             public Map<String, String> getHeaders() {
                 return getRequestHeaders();
@@ -102,105 +112,94 @@ public class CallAPI {
         return jsonObjectRequest;
     }
 
-    /**
-     * Handles a successful API response.
-     *
-     * @param response The JSONObject response from the API.
-     */
-    private void handleResponse(JSONObject response) {
-        Iterator<String> keys = response.keys();
-        while (keys.hasNext()) {
-            String key = keys.next();
-            try {
-                int idFestival = Integer.parseInt(festivalObject.getString("idFestival"));
-                String title = festivalObject.getString("titre");
-                String favoris = festivalObject.getString("favoris");
+    private void handleResponseAllFestivals(JSONObject response, Context context, Map<Integer, String[]> allFestivals,
+                                ArrayList<String> scheduledFestival, ListView listFestival) {
+        try {
+            Iterator<String> keys = response.keys();
+            while (keys.hasNext()) {
+                String key = keys.next();
+                JSONObject objectCurrent = response.getJSONObject(key);
+                processFestivalObject(objectCurrent, allFestivals, scheduledFestival);
+            }
+        } catch (JSONException e) {
+            showMessage(context, context.getString(R.string.data_error));
+        }
 
-                allFestivals.put(idFestival, new String[]{title, favoris});
-                scheduledFestival.add(title);
-            } catch (JSONException e) {
-                displayDataError();
+        updateAdapter(context, scheduledFestival, listFestival);
+    }
+
+    private void processFestivalObject(JSONObject festivalObject, Map<Integer, String[]> allFestivals,
+                                       ArrayList<String> scheduledFestival) throws JSONException {
+        int idFestival = Integer.parseInt(festivalObject.getString("idFestival"));
+        String titre = festivalObject.getString("titre");
+        String favoris = festivalObject.getString("favoris");
+
+        allFestivals.put(idFestival, new String[]{titre, favoris});
+        scheduledFestival.add(titre);
+    }
+
+    private void handleError500(Context context, VolleyError error) {
+        if (error instanceof ServerError && error.networkResponse != null) {
+            int statusCode = error.networkResponse.statusCode;
+            if (statusCode == 500) {
+                showMessage(context, context.getString(R.string.db_error));
             }
         }
-        adapter = new CustomAdapter(activity, scheduledFestival);
+    }
+
+    private void updateAdapter(Context context, ArrayList<String> scheduledFestival, ListView listFestival) {
+        CustomAdapter adapter = new CustomAdapter(context, scheduledFestival);
         listFestival.setAdapter(adapter);
     }
 
     /**
-     * Handles an error response from the API.
+     * Creates a JsonArrayRequest for retrieving information about favorite festivals.
      *
-     * @param error The VolleyError object representing the error.
+     * @param url The URL for retrieving favorite festival information.
+     * @return The JsonArrayRequest for fetching favorite festival data.
      */
-    private void handleError(VolleyError error) {
-        if (error instanceof ServerError && error.networkResponse != null) {
-            int statusCode = error.networkResponse.statusCode;
-            if (statusCode == 500) {
-                displayDBError();
+    public JsonArrayRequest getRequestFavoritesFestivals(String url, Context context, HashMap<Integer,
+            String> favoritesFestivals, ArrayList<String> favoritesFestivalsList, ListView listFestival,
+                                                         CustomAdapter adapter) {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                response -> handleResponseGetFav(response, context, favoritesFestivals, favoritesFestivalsList, listFestival, adapter),
+                error -> handleError500(context, error)) {
+            @Override
+            public Map<String, String> getHeaders() {
+                return getRequestHeaders();
             }
+        };
+        return jsonArrayRequest;
+    }
+    private void handleResponseGetFav(JSONArray response, Context context, HashMap<Integer,
+            String> favoritesFestivals, ArrayList<String> favoritesFestivalsList, ListView listFestival,
+                                      CustomAdapter adapter) {
+        try {
+            for (int i = 0; i < response.length(); i++) {
+                JSONObject objectCurrent = response.getJSONObject(i);
+                favoritesFestivals.put(objectCurrent.getInt("idFestival"),
+                        objectCurrent.getString("titre"));
+                favoritesFestivalList.add(objectCurrent.getString("titre"));
+            }
+
+            adapter = new CustomAdapter(context, favoritesFestivalList);
+            listFestival.setAdapter(adapter);
+        } catch (JSONException e) {
+            Toast.makeText(context, context.getString(R.string.data_error),Toast.LENGTH_LONG).show();
         }
+
     }
 
-    /**
-     * Constructs and returns the request headers.
-     *
-     * @return A Map containing the request headers.
-     */
     private Map<String, String> getRequestHeaders() {
         Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Type", "application/json");
         headers.put(Utils.API_KEY_NAME, Utils.apiKeyUser);
         return headers;
     }
 
-    /**
-     * Displays a toast message for a database error.
-     */
-    private void displayDBError(ListFestivalActivity activity) {
-        Toast.makeText(activity, R.string.db_error, Toast.LENGTH_LONG).show();
+    private void showMessage(Context context, String message) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
 
-    /**
-     * Displays a toast message for a data error.
-     */
-    private void displayDataError(ListFestivalActivity activity) {
-        Toast.makeText(activity, R.string.data_error, Toast.LENGTH_LONG).show();
-    }
 
-    /**
-     * Creates a JsonObjectRequest for adding a festival to favorites.
-     *
-     * @param url The URL for adding the festival to favorites.
-     * @return The JsonObjectRequest for adding the festival to favorites.
-     */
-    public JsonObjectRequest requestAddFavoriteFestival(String url, Context context) {
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
-            new Response.Listener<JSONObject>() {
-                @Override
-                public void onResponse(JSONObject response) {
-                    Toast.makeText(context, R.string.msg_success_add_fav,
-                                                 Toast.LENGTH_SHORT).show();
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    if (error instanceof ServerError && error.networkResponse != null) {
-                        int statusCode = error.networkResponse.statusCode;
-                        if (statusCode == 500 || statusCode == 400) {
-                            Toast.makeText(context,
-                                    R.string.msg_error_add_fav,
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }
-            }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                headers.put("Content-Type", "application/json");
-                headers.put(Utils.API_KEY_NAME, Utils.apiKeyUser);
-                return headers;
-            }
-        };
-        return jsonObjectRequest;
-    }
 }

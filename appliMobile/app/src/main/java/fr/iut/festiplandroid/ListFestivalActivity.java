@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import fr.iut.festiplandroid.utils.CallAPI;
 import fr.iut.festiplandroid.utils.CustomAdapter;
 import fr.iut.festiplandroid.utils.Utils;
 
@@ -90,7 +91,9 @@ public class ListFestivalActivity extends AppCompatActivity {
         String url = String.format(Utils.URL_API_ALL_FESTIVALS, Utils.idUser);
 
         requestQueue = Utils.getFileRequete(this, requestQueue);
-        JsonObjectRequest jsonObjectRequest = getRequestAllFestivals(url);
+        CallAPI ca = new CallAPI();
+        JsonObjectRequest jsonObjectRequest = ca.getRequestAllFestivals(url, this, allFestivals, 
+                                                                         scheduledFestival, listFestival);
 
         requestQueue.add(jsonObjectRequest);
     }
@@ -131,59 +134,11 @@ public class ListFestivalActivity extends AppCompatActivity {
         favoritesFestivalList.clear();
         String url = String.format(Utils.URL_API_FAV_FESTIVALS, Utils.idUser);
 
-        JsonArrayRequest jsonArrayRequest = getRequestFavoritesFestivals(url);
+        CallAPI callApi = new CallAPI();
+        JsonArrayRequest jsonArrayRequest = 
+                callApi.getRequestFavoritesFestivals(url, this, favoritesFestivals, 
+                                                     favoritesFestivalList, listFestival, adapter);
 
         requestQueue.add(jsonArrayRequest);
-    }
-
-    /**
-     * Creates a JsonArrayRequest for retrieving information about favorite festivals.
-     *
-     * @param url The URL for retrieving favorite festival information.
-     * @return The JsonArrayRequest for fetching favorite festival data.
-     */
-    private JsonArrayRequest getRequestFavoritesFestivals(String url) {
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        try {
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject objectCurrent = response.getJSONObject(i);
-                                favoritesFestivals.put(objectCurrent.getInt("idFestival"),
-                                        objectCurrent.getString("titre"));
-                                favoritesFestivalList.add(objectCurrent.getString("titre"));
-                            }
-
-                            adapter = new CustomAdapter(ListFestivalActivity.this, favoritesFestivalList);
-                            listFestival.setAdapter(adapter);
-                        } catch (JSONException e) {
-                            Toast.makeText(ListFestivalActivity.this,
-                                    getResources().getString(R.string.data_error),
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if (error instanceof ServerError && error.networkResponse != null) {
-                            int statusCode = error.networkResponse.statusCode;
-                            if (statusCode == 500) {
-                                Toast.makeText(ListFestivalActivity.this,
-                                        getResources().getString(R.string.db_error),
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }
-                }) {
-            @Override
-            public Map<String, String> getHeaders() {
-                Map<String, String> headers = new HashMap<>();
-                headers.put(Utils.API_KEY_NAME, Utils.apiKeyUser);
-                return headers;
-            }
-        };
-        return jsonArrayRequest;
     }
 }

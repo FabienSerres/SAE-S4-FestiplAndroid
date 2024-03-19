@@ -75,7 +75,7 @@ public class CustomAdapter extends ArrayAdapter<String> {
                     String addFavoriteUrl = String.format(Utils.URL_API_ADD_FAV, Utils.idUser,
                                                                                  idFestival);
                     RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-                    requestQueue.add(CallAPI.requestAddFavoriteFestival(addFavoriteUrl));
+                    requestQueue.add(requestAddFavoriteFestival(addFavoriteUrl));
                 } else if (tag.equals("full")) {
                     button.setImageResource(R.drawable.star_empty);
                     button.setTag("empty");
@@ -91,7 +91,44 @@ public class CustomAdapter extends ArrayAdapter<String> {
         return listItemView;
     }
 
-    
+    /**
+     * Creates a JsonObjectRequest for adding a festival to favorites.
+     *
+     * @param url The URL for adding the festival to favorites.
+     * @return The JsonObjectRequest for adding the festival to favorites.
+     */
+    private JsonObjectRequest requestAddFavoriteFestival(String url) {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, null,
+            new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Toast.makeText(getContext(), R.string.msg_success_add_fav,
+                                                 Toast.LENGTH_SHORT).show();
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    if (error instanceof ServerError && error.networkResponse != null) {
+                        int statusCode = error.networkResponse.statusCode;
+                        if (statusCode == 500 || statusCode == 400) {
+                            Toast.makeText(getContext(),
+                                    R.string.msg_error_add_fav,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+            }) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Content-Type", "application/json");
+                headers.put(Utils.API_KEY_NAME, Utils.apiKeyUser);
+                return headers;
+            }
+        };
+        return jsonObjectRequest;
+    }
 
     /**
      * Creates a JsonObjectRequest for deleting a festival from favorites.
@@ -131,5 +168,6 @@ public class CustomAdapter extends ArrayAdapter<String> {
         };
         return jsonObjectRequest;
     }
+
 }
 

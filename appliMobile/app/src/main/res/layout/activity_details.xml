@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:stretchColumns="1"
+    android:layout_marginLeft="@dimen/margin_top_15"
+    android:layout_marginRight="@dimen/margin_top_15">
 
     <TextView
         android:id="@+id/titre"
@@ -9,21 +12,26 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:text="Test"
-        android:textSize="@dimen/height_title" />
+        android:textSize="@dimen/height_title"
+        android:layout_marginTop="@dimen/margin_top_100"/>
 
     <TextView
         android:id="@+id/categorie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/category_label"
-        android:textSize="@dimen/txt_size_20"/>
+        android:textSize="@dimen/txt_size_20"
+        android:layout_marginTop="@dimen/margin_top_25"
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/description_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/description_label"
-        android:textSize="@dimen/txt_size_20"/>
+        android:textSize="@dimen/txt_size_20"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/margin_top_15"/>
 
         <TextView
         android:id="@+id/description_text"
@@ -32,4 +40,35 @@
         android:text=""
         android:textSize="@dimen/txt_size_18"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/date_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/date_label"
+        android:textSize="@dimen/txt_size_20"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/margin_top_15"/>
+
+    <TextView
+        android:id="@+id/date_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="@dimen/txt_size_18"/>
+
+    <TextView
+        android:id="@+id/spectacle_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/spectacle_label"
+        android:textSize="@dimen/txt_size_20"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/margin_top_15"/>
+
+    <ListView
+        android:id="@+id/list_spectacle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_top_15"/>
+
+</TableLayout>
