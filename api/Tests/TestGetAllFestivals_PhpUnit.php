@@ -9,23 +9,33 @@ class TestGetAllFestivals_PhpUnit extends TestCase {
     public function testGetAllFestivalsSuccess() {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
-        $pdoStatementMockl = $this->createMock(PDOStatement::class);
-
-        $pdoMock->method('prepare')->willReturn($pdoStatementMockl);
-
-        $pdoStatementMockl->method('execute')->willReturn(true);
-        $pdoStatementMockl->method('fetchAll')->willReturn([
-            ["idFestival" => 1, "titre" => "Festival A"],
-            ["idFestival" => 2, "titre" => "Festival B"]
-        ]);
-
+        $pdoStatementMock1 = $this->createMock(PDOStatement::class);
+        $pdoStatementMock2 = $this->createMock(PDOStatement::class);
+    
+        $pdoMock->expects($this->exactly(2)) // Attend deux exécutions
+                ->method('prepare')
+                ->willReturnOnConsecutiveCalls($pdoStatementMock1, $pdoStatementMock2);
+    
+        $pdoStatementMock1->expects($this->once())
+                           ->method('execute')
+                           ->willReturn(true);
+        $pdoStatementMock1->expects($this->once())
+                           ->method('fetchAll')
+                           ->willReturn([["idFestival" => 1, "titre" => "Festival A"]]);
+    
+        $pdoStatementMock2->expects($this->once())
+                           ->method('execute')
+                           ->willReturn(true);
+        $pdoStatementMock2->expects($this->once())
+                           ->method('fetchAll')
+                           ->willReturn([["idFestival" => 1, "titre" => "Festival A"]]);
+    
         // WHEN: Appel de la fonction à getAllFestivals
         $result = getAllFestivals($pdoMock, 1);
-
+    
         // THEN: Vérification du résultat attendu
         $this->assertEquals([200, [
-            1 => ["idFestival" => 1, "titre" => "Festival A", "favoris" => false],
-            2 => ["idFestival" => 2, "titre" => "Festival B", "favoris" => false]
+            1 => ["idFestival" => 1, "titre" => "Festival A", "favoris" => false]
         ]], $result);
     }
 
