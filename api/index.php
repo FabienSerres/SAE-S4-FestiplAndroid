@@ -11,8 +11,10 @@ if (!isset($_GET["demande"]) || empty($_GET["demande"])) {
     sendJson(404, $data);
 }
 
+// filter_var renvoie false ou string
 $filterVar = filter_var($_GET["demande"]);
 
+// Php stan detecte quand meme une erreur malgrès le test suivant
 if ($filterVar === false) {
    $data["message"] = "Erreur filtre var invalide";
     sendJson(404, $data);
@@ -29,7 +31,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
 
         switch($url[0]) {
 
-            case "getAllFestivals" :
+            case "getAllFestivals":
 
                 // Vérification de l'authentification de l'utilisateur
                 CheckIsAuthentified();
