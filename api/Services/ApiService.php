@@ -137,7 +137,7 @@ function getFestivalInfo(PDO $pdo, int $id): array {
 
         return array(200, $result);
 
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
         return array(500, $infos);
     }
