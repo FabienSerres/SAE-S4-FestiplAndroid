@@ -38,6 +38,8 @@ public class Utils {
                                                + "/SAE-S4-FestiplAndroid/api/addFavoriteFestival/%d/%d";
     public final static String URL_API_DEL_FAV = "http://" + Utils.IP_SERVER
                                                + "/SAE-S4-FestiplAndroid/api/deleteFavoriteFestival/%d/%d";
+    public final static String URL_API_DETAILS = "http://" + Utils.IP_SERVER
+                                               + "/SAE-S4-FestiplAndroid/api/getFestivalInfo/%d";
 
     /**
      * Checks if the device is connected to the internet.

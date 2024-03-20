@@ -7,11 +7,11 @@
     android:layout_marginRight="@dimen/margin_top_15">
 
     <TextView
-        android:id="@+id/titre"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:text="Test"
+        android:text=""
         android:textSize="@dimen/height_title"
         android:layout_marginTop="@dimen/margin_top_100"/>
 

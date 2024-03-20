@@ -20,6 +20,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -172,6 +173,7 @@ public class CallAPI {
         };
         return jsonArrayRequest;
     }
+    
     private void handleResponseGetFav(JSONArray response, Context context, HashMap<Integer,
             String> favoritesFestivals, ArrayList<String> favoritesFestivalsList, ListView listFestival,
                                       CustomAdapter adapter) {
@@ -190,6 +192,32 @@ public class CallAPI {
         }
 
     }
+
+    // public JsonArrayRequest getRequestDetailsFestivals(String url, Context context,
+    //                                                    ListView listSpectacle, TextView title, 
+    //                                                    TextView categorie, TextView description_text, 
+    //                                                    TextView date_text) {
+    //     JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+    //             response -> handleResponseGetDetails(response, context, listSpectacle, title, 
+    //                                                  categorie, description_text, date_text),
+    //             error -> handleError500(context, error)) {
+    //         @Override
+    //         public Map<String, String> getHeaders() {
+    //             return getRequestHeaders();
+    //         }
+    //     };
+    //     return jsonArrayRequest;
+    // }
+    
+    // private void handleResponseGetDetails(JSONArray response, Context context, ListView listSpectacle, 
+    //                                       TextView title,TextView categorie, TextView description_text,
+    //                                       TextView date_text) {
+    //     try {
+    //         Log.d("RESULTAT", response.toString());    
+    //     } catch (Exception e) {
+    //         Toast.makeText(context, context.getString(R.string.data_error),Toast.LENGTH_LONG).show();    
+    //     }
+    // }
 
     private Map<String, String> getRequestHeaders() {
         Map<String, String> headers = new HashMap<>();
