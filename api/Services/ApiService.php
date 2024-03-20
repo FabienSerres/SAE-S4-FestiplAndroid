@@ -122,9 +122,22 @@ function getFestivalInfo(PDO $pdo, int $id): array {
 
         $stmt->closeCursor();
 
+        $sql = "SELECT Spectacle.titre, Spectacle.duree, Spectacle.categorie
+                FROM Spectacle
+                INNER JOIN SpectacleDeFestival
+                ON Spectacle.idSpectacle = SpectacleDeFestival.idSpectacle
+                WHERE SpectacleDeFestival.idFestival = ?";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([$id]);
+
+        $result["spectacles"] = $stmt->fetchAll();
+
+        $stmt->closeCursor();
+
         return array(200, $result);
 
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
         return array(500, $infos);
     }
@@ -162,7 +175,7 @@ function getFavoriteFestivals(PDO $pdo, int $id): array {
 
         return array(200, $result);
 
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
         return array(500, $infos);
     }
@@ -217,7 +230,7 @@ function deleteFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): 
 
         return array(200, $infos);
 
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
         return array(500, $infos);
     }

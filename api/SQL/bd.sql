@@ -287,3 +287,15 @@ VALUES
     (2, 4),
     (3, 4),
     (1, 5);
+
+INSERT INTO SpectacleDeFestival (idSpectacle, idFestival)
+VALUES
+    (1, 1),
+    (2, 1),
+    (5, 1);
+    (3, 2),
+    (4, 2),
+    (5, 2);
+    (2, 3),
+    (3, 3),
+    (5, 3);

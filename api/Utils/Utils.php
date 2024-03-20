@@ -72,7 +72,7 @@ function CallFunctionAndSendResults(callable $func): void {
         $infos = array();
         $infos["message"] = "Mauvais paramettre dans la fonction CallFunctionAndSendResults";
         sendJson(400, $infos);
-    } 
+    }
 
     // TODO faire la verification des paramettres pour que ce soit seulement un PDO
     // if ($reflection->getParameters());
