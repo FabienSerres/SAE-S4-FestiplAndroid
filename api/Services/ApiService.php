@@ -96,31 +96,6 @@ function getFestivalInfo(PDO $pdo, int $id): array {
 
         $result["festival"] = $stmt->fetch();
 
-        $sql = "SELECT nom, prenom
-                FROM Utilisateur
-                JOIN EquipeOrganisatrice
-                ON EquipeOrganisatrice.idUtilisateur = Utilisateur.idUtilisateur
-                WHERE EquipeOrganisatrice.idFestival = :id";
-
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-
-        $result["organisateurs"] = $stmt->fetchAll();
-
-        $sql = "SELECT Scene.nom
-                FROM Scene
-                JOIN SpectacleScenes
-                ON Scene.idScene = SpectacleScenes.idScene
-                WHERE SpectacleScenes.idFestival = :id";
-
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-
-        $result["scenes"] = $stmt->fetchAll();
-
-        $stmt->closeCursor();
 
         $sql = "SELECT Spectacle.titre, Spectacle.duree, CategorieSpectacle.nomCategorie
                 FROM Spectacle
@@ -133,7 +108,9 @@ function getFestivalInfo(PDO $pdo, int $id): array {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$id]);
 
-        $result["spectacles"] = $stmt->fetchAll();
+        if($stmt->fetchAll() !=null){
+             $result["spectacles"] = $stmt->fetchAll();
+        }
 
         $stmt->closeCursor();
 
