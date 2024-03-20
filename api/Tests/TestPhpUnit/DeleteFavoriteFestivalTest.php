@@ -7,7 +7,7 @@ class DeleteFavoriteFestivalTest extends TestCase {
     /**
      * Test lorsque le festival est supprimé avec succès des favoris de l'utilisateur.
      */
-    public function testDeleteFavoriteFestivalSuccess() {
+    public function testDeleteFavoriteFestivalSuccess(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
         $pdoStatementMock1 = $this->createMock(PDOStatement::class);
@@ -35,7 +35,7 @@ class DeleteFavoriteFestivalTest extends TestCase {
         $this->assertEquals([200, ["message" => "Festival supprimé des favoris"]], $result);
     }
     
-    public function testDeleteFavoriteFestivalNotFound() {
+    public function testDeleteFavoriteFestivalNotFound(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
         $pdoStatementMock1 = $this->createMock(PDOStatement::class);
@@ -59,7 +59,7 @@ class DeleteFavoriteFestivalTest extends TestCase {
         $this->assertEquals([400, ["message" => "Le festival 1 n'est pas en favoris pour l'utilisateur 1"]], $result);
     }
     
-    public function testDeleteFavoriteFestivalException() {
+    public function testDeleteFavoriteFestivalException(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
     
@@ -77,7 +77,7 @@ class DeleteFavoriteFestivalTest extends TestCase {
     /**
      * Test lorsque le festival n'est pas présent dans les favoris de l'utilisateur.
      */
-    public function testDeleteFavoriteFestivalNotPresent() {
+    public function testDeleteFavoriteFestivalNotPresent(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
         $pdoStatementMock = $this->createMock(PDOStatement::class);
@@ -105,7 +105,7 @@ class DeleteFavoriteFestivalTest extends TestCase {
     /**
      * Teste la fonction deleteFavoriteFestival en cas d'erreur interne du serveur.
      */
-    public function testDeleteFavoriteFestivalServerError() {
+    public function testDeleteFavoriteFestivalServerError(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement générant une exception
         $pdoMock = $this->createMock(PDO::class);
         $pdoMock->method('prepare')->willThrowException(new Exception('Erreur interne'));

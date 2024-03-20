@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 class GetAllFestivalsTest extends TestCase {
 
     // Test lorsque tout se passe bien
-    public function testGetAllFestivalsSuccess() {
+    public function testGetAllFestivalsSuccess(): void {
         // Aide trouver ici:
         // https://stackoverflow.com/questions/54533092/phpunit-test-a-class-with-an-expects-method-in-it
 
@@ -42,7 +42,7 @@ class GetAllFestivalsTest extends TestCase {
     }
 
     // Test en cas d'erreur interne du serveur
-    public function testGetAllFestivalsServerError() {
+    public function testGetAllFestivalsServerError(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement générant une exception
         $pdoMock = $this->createMock(PDO::class);
         $pdoMock->method('prepare')->willThrowException(new Exception('Erreur interne'));
@@ -55,7 +55,7 @@ class GetAllFestivalsTest extends TestCase {
     }
 
     // Test avec un identifiant utilisateur invalide
-    public function testGetAllFestivalsInvalidUserID() {
+    public function testGetAllFestivalsInvalidUserID(): void {
         // GIVEN: Initialisation du mock PDO 
         $pdoMock = $this->createMock(PDO::class);
         $statementMock = $this->createMock(PDOStatement::class);
@@ -76,7 +76,7 @@ class GetAllFestivalsTest extends TestCase {
     }
 
     // Test lorsque aucun festival n'est trouvé pour un utilisateur donné
-    public function testGetAllFestivalsAucunFestivalTrouve() {
+    public function testGetAllFestivalsAucunFestivalTrouve(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement renvoyant une liste vide de festivals
         $pdoMock = $this->createMock(PDO::class);
         $statementMock = $this->createMock(PDOStatement::class);

@@ -7,7 +7,7 @@ class AuthentificationTest extends TestCase {
     /**
      * Test lorsque l'authentification réussit avec les informations correctes.
      */
-    public function testAuthenticationSuccess() {
+    public function testAuthenticationSuccess(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
         $pdoStatementMock = $this->createMock(PDOStatement::class);
@@ -25,7 +25,9 @@ class AuthentificationTest extends TestCase {
                         ->willReturn([['idUtilisateur' => 1]]);
     
         // Fonction utilisé dans authentification temporairement réecrite pour test
-        function CreateHeaderFromLoginPassword() {
+        // Inner function non supporté par phpstan mais ici nécessaires pour 
+        // pouvoir l'utilisé par la suite dans la fonction authentification
+        function CreateHeaderFromLoginPassword(): string {
             return "fake_api_key";
         }
 
@@ -39,7 +41,7 @@ class AuthentificationTest extends TestCase {
     /**
      * Test lorsque le login est vide.
      */
-    public function testAuthenticationEmptyLogin() {
+    public function testAuthenticationEmptyLogin(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
 
@@ -53,7 +55,7 @@ class AuthentificationTest extends TestCase {
     /**
      * Test lorsque le mot de passe est vide.
      */
-    public function testAuthenticationEmptyPassword() {
+    public function testAuthenticationEmptyPassword(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
 
@@ -67,7 +69,7 @@ class AuthentificationTest extends TestCase {
     /**
      * Test lorsque le login et le mot de passe sont incorrects.
      */
-    public function testAuthenticationInvalidCredentials() {
+    public function testAuthenticationInvalidCredentials(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
         $pdoStatementMock = $this->createMock(PDOStatement::class);
@@ -94,7 +96,7 @@ class AuthentificationTest extends TestCase {
     /**
      * Teste la fonction authentification en cas d'erreur interne du serveur.
      */
-    public function testAuthenticationServerError() {
+    public function testAuthenticationServerError(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement générant une exception
         $pdoMock = $this->createMock(PDO::class);
         $pdoMock->method('prepare')->willThrowException(new Exception('Erreur interne'));

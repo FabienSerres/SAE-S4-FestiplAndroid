@@ -7,7 +7,7 @@ class AddFavoriteFestivalTest extends TestCase {
     /**
      * Test lorsque le festival est ajouté avec succès aux favoris de l'utilisateur.
      */
-    public function testAddFavoriteFestivalSuccess() {
+    public function testAddFavoriteFestivalSuccess(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
         $pdoStatementMock = $this->createMock(PDOStatement::class);
@@ -35,7 +35,7 @@ class AddFavoriteFestivalTest extends TestCase {
     /**
      * Test lorsque le festival est déjà présent dans les favoris de l'utilisateur.
      */
-    public function testAddFavoriteFestivalAlreadyAdded() {
+    public function testAddFavoriteFestivalAlreadyAdded(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
         $pdoStatementMock = $this->createMock(PDOStatement::class);
@@ -63,7 +63,7 @@ class AddFavoriteFestivalTest extends TestCase {
     /**
      * Teste la fonction addFavoriteFestival en cas d'erreur interne du serveur.
      */
-    public function testAddFavoriteFestivalServerError() {
+    public function testAddFavoriteFestivalServerError(): void {
         // GIVEN: Initialisation du mock PDO avec un comportement générant une exception
         $pdoMock = $this->createMock(PDO::class);
         $pdoMock->method('prepare')->willThrowException(new Exception('Erreur interne'));

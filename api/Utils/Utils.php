@@ -68,6 +68,8 @@ function CallFunctionAndSendResults(callable $func): void {
 
     // Trouver ici https://stackoverflow.com/a/52564238
     $reflection = new ReflectionFunction($func);
+    // Erreur php stan malgrès le fait que ReflectionFunction 
+    // prend bien un callable en argument.
     if ('array' != $reflection->getReturnType()) {
         $infos = array();
         $infos["message"] = "Mauvais paramettre dans la fonction CallFunctionAndSendResults";

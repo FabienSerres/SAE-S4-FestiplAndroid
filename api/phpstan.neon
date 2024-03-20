@@ -3,6 +3,7 @@ parameters:
 	paths:
 		- Services
 		- Utils
+		- Tests
 	scanDirectories:
 	    - vendor
 	excludePaths:
