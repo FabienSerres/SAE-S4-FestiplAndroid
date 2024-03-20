@@ -278,7 +278,7 @@ function addFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): arr
             return array(400, $infos);
         }
 
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         $infos["message"] = "Erreur: " .$e->getMessage();
         return array(500, $infos);
     }
