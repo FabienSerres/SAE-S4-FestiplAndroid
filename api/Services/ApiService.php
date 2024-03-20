@@ -122,10 +122,12 @@ function getFestivalInfo(PDO $pdo, int $id): array {
 
         $stmt->closeCursor();
 
-        $sql = "SELECT Spectacle.titre, Spectacle.duree, Spectacle.categorie
+        $sql = "SELECT Spectacle.titre, Spectacle.duree, CategorieSpectacle.nomCategorie
                 FROM Spectacle
                 INNER JOIN SpectacleDeFestival
                 ON Spectacle.idSpectacle = SpectacleDeFestival.idSpectacle
+                INNER JOIN CategorieSpectacle
+                ON Spectacle.categorie = CategorieSpectacle.idCategorie
                 WHERE SpectacleDeFestival.idFestival = ?";
 
         $stmt = $pdo->prepare($sql);
