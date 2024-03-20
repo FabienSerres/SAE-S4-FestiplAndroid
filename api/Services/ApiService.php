@@ -108,9 +108,8 @@ function getFestivalInfo(PDO $pdo, int $id): array {
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$id]);
 
-        if($stmt->fetchAll() !=null){
-             $result["spectacles"] = $stmt->fetchAll();
-        }
+
+        $result["spectacles"] = $stmt->fetchAll();
 
         $stmt->closeCursor();
 
