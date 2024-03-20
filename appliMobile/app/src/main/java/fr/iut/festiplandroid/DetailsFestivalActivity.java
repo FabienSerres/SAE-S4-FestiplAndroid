@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ public class DetailsFestivalActivity extends AppCompatActivity {
     private TextView date_text;
 
     private ArrayList<String> spectaclesList = new ArrayList<>();
+    ArrayAdapter<String> adapter;
 
     private int idFestival;
 
@@ -91,12 +93,23 @@ public class DetailsFestivalActivity extends AppCompatActivity {
                                               + festivalInfo.getString("dateFin"));
 
                             JSONArray spectaclesInfo = response.getJSONArray("spectacles");
-                            for (int i = 0; i < spectaclesInfo.length(); i++) {
-                                JSONObject spectacle = spectaclesInfo.getJSONObject(i);
-                                String info = spectacle.getString("titre") + "\n Catégorie : " + spectacle.getString("");
+                            if (spectaclesInfo.length() == 0) {
+                                for (int i = 0; i < spectaclesInfo.length(); i++) {
+                                    JSONObject spectacle = spectaclesInfo.getJSONObject(i);
+                                    String info = spectacle.getString("titre") + "\n Catégorie : "
+                                            + spectacle.getString("nomCategorie") + "\n Durée : "
+                                            + spectacle.getString("duree");
+                                    spectaclesList.add(info);
+                                    adapter = new ArrayAdapter<String>(DetailsFestivalActivity.this, android.R.layout.simple_list_item_1,
+                                            spectaclesList);
+                                    listSpectacle.setAdapter(adapter);
+
+                                }
                             }
                         } catch (JSONException e) {
-                            throw new RuntimeException(e);
+                            Toast.makeText(DetailsFestivalActivity.this,
+                                    R.string.data_error,
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 },
