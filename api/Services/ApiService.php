@@ -99,9 +99,6 @@ function getFestivalInfo(PDO $pdo, int $id): array {
 
         $festivalInfo = $festivalData[0];
 
-        var_dump($festivalInfo);
-        die();
-
         $result["festival"] = [
             "titre" => $festivalInfo['titre'],
             "description" => $festivalInfo['description'],
@@ -109,9 +106,6 @@ function getFestivalInfo(PDO $pdo, int $id): array {
             "dateDebut" => $festivalInfo['dateDebut'],
             "dateFin" => $festivalInfo['dateFin']
         ];
-
-        var_dump($result["festival"]);
-        die();
 
         $stmt->closeCursor();
 

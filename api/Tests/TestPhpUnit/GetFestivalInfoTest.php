@@ -24,7 +24,7 @@ class GetFestivalInfoTest extends TestCase {
                            ->willReturn(true);
         $pdoStatementMock1->expects($this->once())
                            ->method('fetchAll')
-                           ->willReturn(["titre" => "Festival Test", "description" => "Description du festival", "nom" => "Catégorie Test", "dateDebut" => "2024-03-19", "dateFin" => "2024-03-21"]);
+                           ->willReturn([["titre" => "Festival Test", "description" => "Description du festival", "nom" => "Catégorie Test", "dateDebut" => "2024-03-19", "dateFin" => "2024-03-21"]]);
     
         $pdoStatementMock2->expects($this->once())
                            ->method('execute')
