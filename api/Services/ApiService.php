@@ -9,9 +9,10 @@
  * @param PDO $pdo Objet PDO représentant la connexion à la base de données.
  * @param int $idUtilisateur L'identifiant de l'utilisateur pour lequel on veut obtenir la liste des festivals.
  *
- * @return array Un tableau contenant le code HTTP de réponse et la liste des festivals avec leur statut de favoris.
- *               Le code 200 indique une requête réussie avec la liste des festivals.
- *               Le code 500 indique une erreur interne du serveur avec un message d'erreur.
+ * @return array{200|500, non-empty-array<int<1, max>, array{idFestival: mixed, titre: mixed, favoris: bool}>|null|array{message: non-falsy-string}}
+ *         Un tableau contenant le code HTTP de réponse et la liste des festivals avec leur statut de favoris.
+ *         Le code 200 indique une requête réussie avec la liste des festivals.
+ *         Le code 500 indique une erreur interne du serveur avec un message d'erreur.
  */
 function getAllFestivals(PDO $pdo, int $idUtilisateur): array {
     try {
@@ -72,9 +73,10 @@ function getAllFestivals(PDO $pdo, int $idUtilisateur): array {
  * @param PDO $pdo Objet PDO représentant la connexion à la base de données.
  * @param int $id L'identifiant du festival dont on veut obtenir les informations.
  *
- * @return array Un tableau contenant le code HTTP de réponse et les informations détaillées sur le festival.
- *               Le code 200 indique une requête réussie avec les informations détaillées du festival.
- *               Le code 500 indique une erreur interne du serveur avec un message d'erreur.
+ * @return array{200|500, array{message: non-falsy-string}|array{festival: array{titre: string, description: string, nom: string, dateDebut: string, dateFin: string}, organisateurs: array<array{nom: string, prenom: string}>, scenes: array<array{nom: string}>, spectacles: array<array{titre: string, duree: string, categorie: string}>}}
+ *         Un tableau contenant le code HTTP de réponse et les informations détaillées sur le festival.
+ *         Le code 200 indique une requête réussie avec les informations détaillées du festival.
+ *         Le code 500 indique une erreur interne du serveur avec un message d'erreur.
  */
 function getFestivalInfo(PDO $pdo, int $id): array {
     try{
@@ -94,7 +96,29 @@ function getFestivalInfo(PDO $pdo, int $id): array {
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-        $result["festival"] = $stmt->fetch();
+        $festivalData = $stmt->fetchAll();
+
+        if (empty($festivalData)) {
+            throw new Exception("Festival not found");
+        }
+
+        $festivalInfo = $festivalData[0];
+
+        var_dump($festivalInfo);
+        die();
+
+        $result["festival"] = [
+            "titre" => $festivalInfo['titre'],
+            "description" => $festivalInfo['description'],
+            "nom" => $festivalInfo['nom'],
+            "dateDebut" => $festivalInfo['dateDebut'],
+            "dateFin" => $festivalInfo['dateFin']
+        ];
+
+        var_dump($result["festival"]);
+        die();
+
+        $stmt->closeCursor();
 
         $sql = "SELECT nom, prenom
                 FROM Utilisateur

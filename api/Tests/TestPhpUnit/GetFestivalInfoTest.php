@@ -23,7 +23,7 @@ class GetFestivalInfoTest extends TestCase {
                            ->method('execute')
                            ->willReturn(true);
         $pdoStatementMock1->expects($this->once())
-                           ->method('fetch')
+                           ->method('fetchAll')
                            ->willReturn(["titre" => "Festival Test", "description" => "Description du festival", "nom" => "Catégorie Test", "dateDebut" => "2024-03-19", "dateFin" => "2024-03-21"]);
     
         $pdoStatementMock2->expects($this->once())
@@ -76,14 +76,11 @@ class GetFestivalInfoTest extends TestCase {
         $result = getFestivalInfo($pdoMock, -1);
 
         // THEN: Vérification du résultat attendu
-        // Resultat attendu = liste vide + code 200, aucun festival trouvé pour l'utilisateur -1
+        // Resultat attendu = message d'erreur + message avec erreur
         $this->assertEquals([
-            0 => 200, 
+            0 => 500, 
             1 => [
-                "festival" => [],
-                "organisateurs" => [],
-                "scenes" => [],
-                "spectacles" => [],
+                'message' => 'Erreur: Festival not found'
             ],
         ], $result);
     }
@@ -106,12 +103,9 @@ class GetFestivalInfoTest extends TestCase {
 
         // THEN: Vérification du résultat attendu
         $this->assertEquals([
-            0 => 200, 
+            0 => 500, 
             1 => [
-                "festival" => [],
-                "organisateurs" => [],
-                "scenes" => [],
-                "spectacles" => [],
+                'message' => 'Erreur: Festival not found'
             ],
         ], $result);
     }

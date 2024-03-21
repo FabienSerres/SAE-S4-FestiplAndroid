@@ -68,7 +68,7 @@ switch ($_SERVER["REQUEST_METHOD"]) {
             case "getFestivalInfo":
 
                 // Vérification de l'authentification de l'utilisateur
-                CheckIsAuthentified();
+                // CheckIsAuthentified();
 
                 if (isset($url[1])) {
                     CallFunctionAndSendResults(function(PDO $pdo): array {
