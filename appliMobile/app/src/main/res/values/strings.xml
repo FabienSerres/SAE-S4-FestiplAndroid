@@ -47,4 +47,6 @@
     <string name="category_label">Catégorie : </string>
     <string name="date_label">Date : </string>
     <string name="spectacle_label">Spectacles : </string>
+
+    <string name="msg_any_spectacle">Aucun spectacle pour ce festival</string>
 </resources>

@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import fr.iut.festiplandroid.DetailsFestivalActivity;
 import fr.iut.festiplandroid.ListFestivalActivity;
 import fr.iut.festiplandroid.MainActivity;
 import fr.iut.festiplandroid.R;
@@ -114,6 +117,15 @@ public class CallAPI {
         return jsonObjectRequest;
     }
 
+    /**
+     * Handles the response containing all festival data received from the server.
+     *
+     * @param response          The JSON object containing the response data.
+     * @param context           The context of the application.
+     * @param allFestivals      A map to store all festivals with their corresponding details.
+     * @param scheduledFestival An ArrayList to hold the titles of scheduled festivals.
+     * @param listFestival      The ListView to which the festival data will be adapted.
+     */
     private void handleResponseAllFestivals(JSONObject response, Context context, Map<Integer, String[]> allFestivals,
                                 ArrayList<String> scheduledFestival, ListView listFestival) {
         try {
@@ -130,6 +142,14 @@ public class CallAPI {
         updateAdapter(context, scheduledFestival, listFestival);
     }
 
+    /**
+     * Processes the JSON object representing a festival and adds its details to the provided maps and lists.
+     *
+     * @param festivalObject    The JSON object representing the festival.
+     * @param allFestivals      A map to store all festivals with their corresponding details.
+     * @param scheduledFestival An ArrayList to hold the titles of scheduled festivals.
+     * @throws JSONException if there is an error parsing the JSON data.
+     */
     private void processFestivalObject(JSONObject festivalObject, Map<Integer, String[]> allFestivals,
                                        ArrayList<String> scheduledFestival) throws JSONException {
         int idFestival = Integer.parseInt(festivalObject.getString("idFestival"));
@@ -140,6 +160,12 @@ public class CallAPI {
         scheduledFestival.add(titre);
     }
 
+    /**
+     * Handles an HTTP 500 error response from the server.
+     *
+     * @param context The context of the application.
+     * @param error   The VolleyError instance representing the error response.
+     */
     private void handleError500(Context context, VolleyError error) {
         if (error instanceof ServerError && error.networkResponse != null) {
             int statusCode = error.networkResponse.statusCode;
@@ -149,6 +175,13 @@ public class CallAPI {
         }
     }
 
+    /**
+     * Updates the ListView adapter with the latest festival data.
+     *
+     * @param context           The context of the application.
+     * @param scheduledFestival An ArrayList containing the titles of scheduled festivals.
+     * @param listFestival      The ListView to be updated.
+     */
     private void updateAdapter(Context context, ArrayList<String> scheduledFestival, ListView listFestival) {
         CustomAdapter adapter = new CustomAdapter(context, scheduledFestival);
         listFestival.setAdapter(adapter);
@@ -174,6 +207,17 @@ public class CallAPI {
         return jsonArrayRequest;
     }
 
+
+    /**
+     * Handles the response containing favorite festivals received from the server.
+     *
+     * @param response              The JSON array containing the favorite festival data.
+     * @param context               The context of the application.
+     * @param favoritesFestivals    A map to store favorite festivals with their corresponding IDs and titles.
+     * @param favoritesFestivalsList An ArrayList to hold the titles of favorite festivals.
+     * @param listFestival          The ListView to which the favorite festival data will be adapted.
+     * @param adapter               The CustomAdapter used for adapting the data to the list.
+     */
     private void handleResponseGetFav(JSONArray response, Context context, HashMap<Integer,
             String> favoritesFestivals, ArrayList<String> favoritesFestivalsList, ListView listFestival,
                                       CustomAdapter adapter) {
@@ -193,6 +237,101 @@ public class CallAPI {
 
     }
 
+    /**
+     * Constructs a JsonObjectRequest to fetch details of a festival from the server.
+     *
+     * @param url            The URL to send the request.
+     * @param context        The context of the application.
+     * @param adapter        The ListAdapter to adapt the data to the ListView.
+     * @param listSpectacle  The ListView to display the festival details.
+     * @param spectaclesList An ArrayList to hold details of spectacles in the festival.
+     * @param title          The TextView to display the festival title.
+     * @param categorie      The TextView to display the festival category.
+     * @param description_text The TextView to display the festival description.
+     * @param date_text      The TextView to display the festival dates.
+     * @return A JsonObjectRequest instance.
+     */
+    public JsonObjectRequest requestDetailsFestival(String url, Context context, ListAdapter adapter,
+                                                            ListView listSpectacle, ArrayList<String> spectaclesList,
+                                                            TextView title, TextView categorie, TextView description_text,
+                                                            TextView date_text) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                response -> handleResponseDetailsFestival(response, context, adapter, listSpectacle,
+                                                         spectaclesList, title, categorie, description_text,
+                                                         date_text),
+                error -> handleError500400(context, error)) {
+            @Override
+            public Map<String, String> getHeaders() {
+                return getRequestHeaders();
+            }
+        };
+        return jsonObjectRequest;
+    }
+
+    /**
+     * Handles an HTTP 500 or 400 error response from the server.
+     *
+     * @param context The context of the application.
+     * @param error   The VolleyError instance representing the error response.
+     */
+    private void handleError500400(Context context, VolleyError error) {
+        if (error instanceof ServerError && error.networkResponse != null) {
+            int statusCode = error.networkResponse.statusCode;
+            if (statusCode == 500 || statusCode == 400) {
+                Toast.makeText(context, R.string.data_error, Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    /**
+     * Handles the response containing details of a festival received from the server.
+     *
+     * @param response          The JSON object containing the festival details.
+     * @param context           The context of the application.
+     * @param adapter           The ListAdapter to adapt the data to the ListView.
+     * @param listSpectacle     The ListView to display details of spectacles in the festival.
+     * @param spectaclesList    An ArrayList to hold details of spectacles in the festival.
+     * @param title             The TextView to display the festival title.
+     * @param categorie         The TextView to display the festival category.
+     * @param description_text  The TextView to display the festival description.
+     * @param date_text         The TextView to display the festival dates.
+     */
+    private void handleResponseDetailsFestival(JSONObject response, Context context, ListAdapter adapter,
+                                               ListView listSpectacle, ArrayList<String> spectaclesList,
+                                               TextView title, TextView categorie, TextView description_text,
+                                               TextView date_text) {
+        try {
+            JSONObject festivalInfo = response.getJSONObject("festival");
+            title.setText(festivalInfo.getString("titre"));
+            categorie.setText(categorie.getText() + festivalInfo.getString("nom"));
+            description_text.setText(festivalInfo.getString("description"));
+            date_text.setText(festivalInfo.getString("dateDebut") + " - "
+                    + festivalInfo.getString("dateFin"));
+
+            JSONArray spectaclesInfo = response.getJSONArray("spectacles");
+            if (spectaclesInfo.length() != 0) {
+                for (int i = 0; i < spectaclesInfo.length(); i++) {
+                    JSONObject spectacle = spectaclesInfo.getJSONObject(i);
+                    String info = spectacle.getString("titre") + "\n Catégorie : "
+                            + spectacle.getString("nomCategorie") + "\n Durée : "
+                            + spectacle.getString("duree");
+                    spectaclesList.add(info);
+                    adapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1,
+                            spectaclesList);
+                    listSpectacle.setAdapter(adapter);
+
+                }
+            }
+        } catch (JSONException e) {
+            Toast.makeText(context,R.string.msg_any_spectacle, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    /**
+     * Constructs and returns request headers.
+     *
+     * @return A Map containing request headers.
+     */
     private Map<String, String> getRequestHeaders() {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
@@ -200,9 +339,13 @@ public class CallAPI {
         return headers;
     }
 
+    /**
+     * Displays a message to the user.
+     *
+     * @param context The context of the application.
+     * @param message The message to display.
+     */
     private void showMessage(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
     }
-
-
 }

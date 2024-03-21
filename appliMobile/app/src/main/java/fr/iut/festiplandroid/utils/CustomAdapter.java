@@ -32,8 +32,19 @@ import fr.iut.festiplandroid.DetailsFestivalActivity;
 import fr.iut.festiplandroid.ListFestivalActivity;
 import fr.iut.festiplandroid.R;
 
+/**
+ * CustomAdapter class provides a customized adapter for ListView items.
+ * It handles displaying festival data in a ListView with additional functionalities like
+ * adding festivals to favorites and navigating to festival details.
+ */
 public class CustomAdapter extends ArrayAdapter<String> {
 
+    /**
+     * Constructs a new CustomAdapter.
+     *
+     * @param context The context of the application.
+     * @param items   The ArrayList of items to be displayed in the ListView.
+     */
     public CustomAdapter(Context context, ArrayList<String> items) {
         super(context, 0, items);
     }
