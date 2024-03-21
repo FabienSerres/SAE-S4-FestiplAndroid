@@ -23,7 +23,7 @@ class AuthentificationTest extends TestCase {
         $pdoStatementMock->expects($this->once())
                         ->method('fetchAll')
                         ->willReturn([['idUtilisateur' => 1]]);
-    
+                   
         // Fonction utilisé dans authentification temporairement réecrite pour test
         // Inner function non supporté par phpstan mais ici nécessaires pour 
         // pouvoir l'utilisé par la suite dans la fonction authentification

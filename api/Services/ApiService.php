@@ -165,9 +165,10 @@ function getFestivalInfo(PDO $pdo, int $id): array {
  * @param PDO $pdo Objet PDO représentant la connexion à la base de données.
  * @param int $id L'identifiant de l'utilisateur dont on veut obtenir les festivals favoris.
  *
- * @return array Un tableau contenant le code HTTP de réponse et la liste des festivals favoris.
- *               Le code 200 indique une requête réussie avec la liste des festivals favoris.
- *               Le code 500 indique une erreur interne du serveur avec un message d'erreur.
+ * @return array{200|500, array{message: non-falsy-string}|array{}}
+ *         Un tableau contenant le code HTTP de réponse et la liste des festivals favoris.
+ *         Le code 200 indique une requête réussie avec la liste des festivals favoris.
+ *         Le code 500 indique une erreur interne du serveur avec un message d'erreur.
  */
 function getFavoriteFestivals(PDO $pdo, int $id): array {
     try {
@@ -204,10 +205,11 @@ function getFavoriteFestivals(PDO $pdo, int $id): array {
  * @param int $idUtilisateur   L'identifiant de l'utilisateur dont le festival doit être supprimé des favoris.
  * @param int $idFestival      L'identifiant du festival à supprimer des favoris.
  *
- * @return array Un tableau contenant le code HTTP de réponse et les informations associées.
- *               Le code 200 indique que le festival a été supprimé avec succès des favoris de l'utilisateur.
- *               Le code 400 indique que le festival n'était pas présent dans les favoris de l'utilisateur.
- *               Le code 500 indique une erreur interne du serveur avec un message d'erreur.
+ * @return array{200|400|500, array{message: non-falsy-string}|array{}} 
+ *         Un tableau contenant le code HTTP de réponse et les informations associées.
+ *         Le code 200 indique que le festival a été supprimé avec succès des favoris de l'utilisateur.
+ *         Le code 400 indique que le festival n'était pas présent dans les favoris de l'utilisateur.
+ *         Le code 500 indique une erreur interne du serveur avec un message d'erreur.
  */
 function deleteFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): array {
     try {
@@ -259,10 +261,11 @@ function deleteFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): 
  * @param int $idUtilisateur   L'identifiant de l'utilisateur auquel le festival doit être ajouté aux favoris.
  * @param int $idFestival      L'identifiant du festival à ajouter aux favoris.
  *
- * @return array Un tableau contenant le code HTTP de réponse et les informations associées.
- *               Le code 200 indique que le festival a été ajouté avec succès aux favoris de l'utilisateur.
- *               Le code 400 indique que le festival était déjà présent dans les favoris de l'utilisateur.
- *               Le code 500 indique une erreur interne du serveur avec un message d'erreur.
+ * @return array{200|400|500, array{message: non-falsy-string}|array{}}  
+ *         Un tableau contenant le code HTTP de réponse et les informations associées.
+ *         Le code 200 indique que le festival a été ajouté avec succès aux favoris de l'utilisateur.
+ *         Le code 400 indique que le festival était déjà présent dans les favoris de l'utilisateur.
+ *         Le code 500 indique une erreur interne du serveur avec un message d'erreur.
  */
 function addFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): array {
     try {
@@ -307,10 +310,11 @@ function addFavoriteFestival(PDO $pdo, int $idUtilisateur, int $idFestival): arr
  * @param string $login    Le login de l'utilisateur.
  * @param string $password Le mot de passe de l'utilisateur.
  *
- * @return array Un tableau contenant le code HTTP de réponse et les informations associées.
- *               Le code 200 indique une authentification réussie avec les détails de l'utilisateur.
- *               Le code 400 indique une requête incorrecte avec un message d'erreur.
- *               Le code 500 indique une erreur interne du serveur avec un message d'erreur.
+ * @return array{200|400|500, array{message: non-falsy-string}|array{apiKey: string, id: mixed}}
+ *         Un tableau contenant le code HTTP de réponse et les informations associées.
+ *         Le code 200 indique une authentification réussie avec les détails de l'utilisateur.
+ *         Le code 400 indique une requête incorrecte avec un message d'erreur.
+ *         Le code 500 indique une erreur interne du serveur avec un message d'erreur.
  */
 function authentification(PDO $pdo, string $login, string $password): array {
     try {
