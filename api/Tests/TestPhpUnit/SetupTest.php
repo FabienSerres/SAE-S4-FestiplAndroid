@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 class SetupTest extends TestCase {
 
     // Fonction juste pour ne pas afficher d'erreur dans la console
-    public function testPourAfficherAucuneErreurSurLaConsole() {
+    public function testPourAfficherAucuneErreurSurLaConsole(): void {
         $this->assertEquals(true, 0 == 0);
     }
 

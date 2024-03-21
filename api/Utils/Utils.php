@@ -65,21 +65,18 @@ function connecteBD(): PDO {
  * @return void
  */
 function CallFunctionAndSendResults(callable $func): void {
+    $reflection = new ReflectionFunction(\Closure::fromCallable($func));
 
-    // Trouver ici https://stackoverflow.com/a/52564238
-    $reflection = new ReflectionFunction($func);
-    if ('array' != $reflection->getReturnType()) {
+    // Vérification du type de retour de la fonction
+    $returnType = $reflection->getReturnType();
+    if ($returnType !== null && $returnType !== 'array') {
         $infos = array();
-        $infos["message"] = "Mauvais paramettre dans la fonction CallFunctionAndSendResults";
+        $infos["message"] = "Mauvais paramètre dans la fonction CallFunctionAndSendResults";
         sendJson(400, $infos);
+        return;
     }
-
-    // TODO faire la verification des paramettres pour que ce soit seulement un PDO
-    // if ($reflection->getParameters());
-    // https://stackoverflow.com/questions/28149002/get-php-callable-arguments-as-an-array
 
     $pdo = connecteBD();
     $data = $func($pdo);
     sendJson($data[0], $data[1]);
-
 }
