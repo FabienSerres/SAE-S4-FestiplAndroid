@@ -81,16 +81,11 @@ function getAllFestivals(PDO $pdo, int $idUtilisateur): array {
 function getFestivalInfo(PDO $pdo, int $id): array {
     try{
 
-        $sql = "SELECT Festival.titre, Festival.description, Utilisateur.nom, CategorieFestival.nom, Festival.dateDebut, Festival.dateFin
+        $sql = "SELECT Festival.titre, Festival.description, CategorieFestival.nom, Festival.dateDebut, Festival.dateFin
                 FROM Festival
-                JOIN EquipeOrganisatrice
-                ON Festival.idFestival = EquipeOrganisatrice.idFestival
-                JOIN Utilisateur
-                ON EquipeOrganisatrice.idUtilisateur = Utilisateur.idUtilisateur
                 JOIN CategorieFestival
                 ON Festival.categorie = CategorieFestival.idCategorie
-                WHERE Festival.idFestival = :id
-                AND EquipeOrganisatrice.responsable = 1";
+                WHERE Festival.idFestival = :id";
 
         $stmt = $pdo->prepare($sql);
         $stmt->bindParam(':id', $id);
