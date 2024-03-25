@@ -65,17 +65,6 @@ function connecteBD(): PDO {
  * @return void
  */
 function CallFunctionAndSendResults(callable $func): void {
-    $reflection = new ReflectionFunction(\Closure::fromCallable($func));
-
-    // Vérification du type de retour de la fonction
-    $returnType = $reflection->getReturnType();
-    if ($returnType !== null && $returnType !== 'array') {
-        $infos = array();
-        $infos["message"] = "Mauvais paramètre dans la fonction CallFunctionAndSendResults";
-        sendJson(400, $infos);
-        return;
-    }
-
     $pdo = connecteBD();
     $data = $func($pdo);
     sendJson($data[0], $data[1]);
