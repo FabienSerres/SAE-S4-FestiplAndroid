@@ -23,21 +23,22 @@ class GetAllFestivalsTest extends TestCase {
                            ->willReturn(true);
         $pdoStatementMock1->expects($this->once())
                            ->method('fetchAll')
-                           ->willReturn([["idFestival" => 1, "titre" => "Festival A"]]);
+                           ->willReturn([["idFestival" => 1]]);
     
         $pdoStatementMock2->expects($this->once())
                            ->method('execute')
                            ->willReturn(true);
         $pdoStatementMock2->expects($this->once())
                            ->method('fetchAll')
-                           ->willReturn([["idFestival" => 1, "titre" => "Festival A"]]);
+                           ->willReturn([["idFestival" => 1, "titre" => "Festival A"], ["idFestival" => 2, "titre" => "Festival B"]]);
     
         // WHEN: Appel de la fonction à getAllFestivals
         $result = getAllFestivals($pdoMock, 1);
 
         // THEN: Vérification du résultat attendu
         $this->assertEquals([200, [
-            1 => ["idFestival" => 1, "titre" => "Festival A", "favoris" => true]
+            1 => ["idFestival" => 1, "titre" => "Festival A", "favoris" => true],
+            2 => ["idFestival" => 2, "titre" => "Festival B", "favoris" => false]
         ]], $result);
     }
 

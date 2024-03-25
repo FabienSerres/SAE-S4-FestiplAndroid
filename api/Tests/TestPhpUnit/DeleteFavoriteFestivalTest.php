@@ -39,7 +39,6 @@ class DeleteFavoriteFestivalTest extends TestCase {
         // GIVEN: Initialisation du mock PDO avec un comportement attendu
         $pdoMock = $this->createMock(PDO::class);
         $pdoStatementMock1 = $this->createMock(PDOStatement::class);
-        $pdoStatementMock2 = $this->createMock(PDOStatement::class);
     
         $pdoMock->expects($this->exactly(1)) // Attend deux exécutions
                 ->method('prepare')
