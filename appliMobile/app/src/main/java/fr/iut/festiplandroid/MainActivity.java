@@ -40,8 +40,7 @@ public class MainActivity extends AppCompatActivity {
     TextView msgConnection;
     Button btnConnection;
     
-    private final static String URL_API = "http://" + Utils.IP_SERVER + "/SAE-S4-FestiplAndroid/api/"
-                                        + "authentification/%s/%s";
+    private final static String URL_API = "http://" + Utils.IP_SERVER + "/authentification/%s/%s";
 
     private RequestQueue requestQueue;
 

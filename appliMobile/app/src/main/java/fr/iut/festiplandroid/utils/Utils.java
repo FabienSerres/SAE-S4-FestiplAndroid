@@ -29,17 +29,16 @@ public class Utils {
     public static int idUser;
     public static String apiKeyUser = "";
     public static final String API_KEY_NAME = "Moidoumbejleprendfacile";
-    public static final String IP_SERVER = "10.108.0.103";
+    public static final String IP_SERVER = "192.168.215.115";
     public final static String URL_API_ALL_FESTIVALS = "http://" + Utils.IP_SERVER
-                                                     + "/SAE-S4-FestiplAndroid/api/getAllFestivals/%d";
+                                                     + "/getAllFestivals/%d";
     public final static String URL_API_FAV_FESTIVALS = "http://" + Utils.IP_SERVER
-                                                     + "/SAE-S4-FestiplAndroid/api/getFavoriteFestivals/%d";
+                                                     + "/getFavoriteFestivals/%d";
     public final static String URL_API_ADD_FAV = "http://" + Utils.IP_SERVER
-                                               + "/SAE-S4-FestiplAndroid/api/addFavoriteFestival/%d/%d";
+                                               + "/addFavoriteFestival/%d/%d";
     public final static String URL_API_DEL_FAV = "http://" + Utils.IP_SERVER
-                                               + "/SAE-S4-FestiplAndroid/api/deleteFavoriteFestival/%d/%d";
-    public final static String URL_API_DETAILS = "http://" + Utils.IP_SERVER
-                                               + "/SAE-S4-FestiplAndroid/api/getFestivalInfo/%d";
+                                               + "/deleteFavoriteFestival/%d/%d";
+    public final static String URL_API_DETAILS = "http://" + Utils.IP_SERVER + "/getFestivalInfo/%d";
 
     /**
      * Checks if the device is connected to the internet.
