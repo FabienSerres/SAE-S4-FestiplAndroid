@@ -102,6 +102,34 @@ class DeleteFavoriteFestivalTest extends TestCase {
     }
 
     /**
+     * Test qui n'est pas sensé ce produire 
+     */
+    public function testDeleteFavoriteFestivalBizarre(): void {
+        // GIVEN: Initialisation du mock PDO avec un comportement attendu
+        $pdoMock = $this->createMock(PDO::class);
+        $pdoStatementMock = $this->createMock(PDOStatement::class);
+    
+        $pdoMock->expects($this->once())
+                ->method('prepare')
+                ->willReturn($pdoStatementMock);
+    
+        // Exécution pour tester si le festival est présent dans les favoris de l'utilisateur
+        $pdoStatementMock->expects($this->once())
+                        ->method('execute')
+                        ->willReturn(true); // Le festival n'est pas présent dans les favoris de l'utilisateur
+    
+        $pdoStatementMock->expects($this->once())
+                        ->method("fetchAll")
+                        ->willReturn([0=>[1=>0]]);
+
+        // WHEN: Appel de la fonction deleteFavoriteFestival
+        $result = deleteFavoriteFestival($pdoMock, 1, 1);
+    
+        // THEN: Vérification du résultat attendu
+        $this->assertEquals([400, ["message" => "Le festival 1 n'est pas en favoris pour l'utilisateur 1"]], $result);
+    }
+
+    /**
      * Teste la fonction deleteFavoriteFestival en cas d'erreur interne du serveur.
      */
     public function testDeleteFavoriteFestivalServerError(): void {

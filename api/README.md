@@ -30,3 +30,7 @@ Après l'installation d'Xdebug, vous devez le configurer pour activer la couvert
     ```cmd
     tests.bat
     ```
+
+### Étape 4 : Visualisez les resultats
+
+**Vous trouverez les resultats des test et du coverage dans** ```Tests/TestPhpUnit/Rapport```
