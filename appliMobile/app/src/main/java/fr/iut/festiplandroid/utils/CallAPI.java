@@ -80,6 +80,7 @@ public class CallAPI {
      * @param msgConnection The TextView to display connection messages.
      */
     private static void handleErrorAuth(VolleyError error, TextView msgConnection) {
+        Log.d("ERROR", error.toString());
         if (error instanceof ServerError && error.networkResponse != null) {
             int statusCode = error.networkResponse.statusCode;
             if (statusCode == 400) {

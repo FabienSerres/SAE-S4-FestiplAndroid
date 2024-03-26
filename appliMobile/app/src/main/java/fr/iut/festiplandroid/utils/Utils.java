@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import fr.iut.festiplandroid.ListFestivalActivity;
@@ -29,7 +30,7 @@ public class Utils {
     public static int idUser;
     public static String apiKeyUser = "";
     public static final String API_KEY_NAME = "Moidoumbejleprendfacile";
-    public static final String IP_SERVER = "192.168.215.115";
+    public static final String IP_SERVER = "192.168.11.174";
     public final static String URL_API_ALL_FESTIVALS = "http://" + Utils.IP_SERVER
                                                      + "/getAllFestivals/%d";
     public final static String URL_API_FAV_FESTIVALS = "http://" + Utils.IP_SERVER
@@ -90,16 +91,16 @@ public class Utils {
      * @param position The position of the festival in the list.
      * @return The ID of the festival if found, otherwise -1.
      */
-    public static int getFestivalId(int position) {
-        if (position >= 0 && position < ListFestivalActivity.allFestivals.size()) {
-            Set<Integer> keys = ListFestivalActivity.allFestivals.keySet();
-            List<Integer> keyList = new ArrayList<>(keys);
-            if (position < keyList.size()) {
-                int festivalId = keyList.get(position);
-                return festivalId;
+    public static int getFestivalIdFromName(String festivalName) {
+        for (Map.Entry<Integer, String[]> entry : ListFestivalActivity.allFestivals.entrySet()) {
+            String[] festivalInfo = entry.getValue();
+            if (festivalInfo != null && festivalInfo.length > 0 && festivalInfo[0].equals(festivalName)) {
+                return entry.getKey(); // Obtenez l'ID du festival correspondant au nom
             }
         }
-        return -1;
+        return -1; // Retourne -1 si aucun ID correspondant n'est trouvé
     }
+
+
 
 }
