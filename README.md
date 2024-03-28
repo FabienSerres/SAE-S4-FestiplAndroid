@@ -28,18 +28,26 @@ Projet réalisé par : Roma Rafaël, Serres Fabien, Soleil Aurélien et Lohan Vi
 
 # Organisation du projet 
 Sprint 0 : 08/02/2024 - 26/02/2024  
+
 Scrum master → Serres Fabien
+
 Product owner → Roma Rafaël
 
 Sprint 1 : 27/02/2024 - 10/03/2024 (13,75 sp)
+
 Scrum master → Roma Rafaël
+
 Product owner → Serres Fabien
 
 Sprint 2 : 11/03/2024 - 24/03/2024 (23,75 sp)
+
 Scrum master → Soleil Aurélien
+
 Product owner → Vignals Lohan
 
 Sprint 3 : 25/03/2024 - 29/03/2024 (12,5 sp)
+
 Scrum master → Vignals Lohan
+
 Product owner → Soleil Aurélien
 
