@@ -84,23 +84,4 @@ public class Utils {
         }
         return requestQueue;
     }
-
-    /**
-     * Retrieves the ID of the festival based on its position.
-     *
-     * @param position The position of the festival in the list.
-     * @return The ID of the festival if found, otherwise -1.
-     */
-    public static int getFestivalIdFromName(String festivalName) {
-        for (Map.Entry<Integer, String[]> entry : ListFestivalActivity.allFestivals.entrySet()) {
-            String[] festivalInfo = entry.getValue();
-            if (festivalInfo != null && festivalInfo.length > 0 && festivalInfo[0].equals(festivalName)) {
-                return entry.getKey(); // Obtenez l'ID du festival correspondant au nom
-            }
-        }
-        return -1; // Retourne -1 si aucun ID correspondant n'est trouvé
-    }
-
-
-
 }

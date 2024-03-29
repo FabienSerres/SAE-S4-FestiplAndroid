@@ -83,16 +83,14 @@ public class CustomAdapter extends ArrayAdapter<String> {
             public void onClick(View v) {
                 String tag = (String) buttonFav.getTag();
 
-                String festivalName = getItem(position); // Obtenez le nom du festival à partir de la position
-                Log.d("ERREUR", festivalName);
-                int idFestival = -1;
-                for (String scheduledFestivalName : ListFestivalActivity.scheduledFestival) {
-                    if (scheduledFestivalName.equals(festivalName)) {
-                        idFestival = Utils.getFestivalIdFromName(scheduledFestivalName);
-                        break; // Sortez de la boucle dès que vous trouvez l'ID du festival
+                String nameFestival = getItem(position);
+
+                int idFestival = 0;
+                for (Map.Entry<Integer, String[]> values : ListFestivalActivity.allFestivals.entrySet()) {
+                    if (values.getValue()[0].equals(nameFestival)) {
+                        idFestival = values.getKey();
                     }
                 }
-
 
                 if (tag.equals("empty")) {
                     buttonFav.setImageResource(R.drawable.star_full);
