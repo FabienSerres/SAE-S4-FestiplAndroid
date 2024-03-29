@@ -88,6 +88,8 @@ public class ListFestivalActivity extends AppCompatActivity {
         tv.setText(R.string.title_festivals);
         allFestivals.clear();
         scheduledFestival.clear();
+        favoritesFestivals.clear();
+        favoritesFestivalList.clear();
 
         String url = String.format(Utils.URL_API_ALL_FESTIVALS, Utils.idUser);
 
@@ -116,10 +118,6 @@ public class ListFestivalActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        // Nothing done for block the way to go back on the main activity
-    }
 
     /**
      * Displays the list of favorite festivals in the UI.
@@ -128,7 +126,7 @@ public class ListFestivalActivity extends AppCompatActivity {
      * 'allFestivals' HashMap, and adds the title of festivals with 'favoris' set to "true"
      * to the favorites list. Finally, it updates the adapter and sets it to the ListView.
      */
-    private void displayListFavorites() {
+    public void displayListFavorites() {
         tv.setText(R.string.option_favorites);
 
         favoritesFestivals.clear();
